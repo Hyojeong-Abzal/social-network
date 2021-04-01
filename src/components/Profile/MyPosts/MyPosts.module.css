@@ -1,0 +1,12 @@
+.wrapper {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f7f7fa;
+    border-radius: 20px;
+    width: 700px;
+    height: 1000px;
+}
+
+.addPost {
+    display: flex;
+}

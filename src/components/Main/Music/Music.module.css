@@ -1,0 +1,9 @@
+.OneMusic {
+    padding-left: 5px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+}
+.musicSign {
+    width: 30px;
+}

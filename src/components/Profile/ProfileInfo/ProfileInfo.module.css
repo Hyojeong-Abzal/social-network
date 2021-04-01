@@ -1,0 +1,56 @@
+
+
+.profileinfo {
+    display: flex;
+
+}
+.avatar {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    background-color: #f7f7fa;
+    border-radius: 20px;
+}
+
+
+
+.avatar img {
+
+    width: 180px;
+    height: 180px;
+    border-radius: 20px;
+}
+
+.description {
+    /*display: flex;*/
+    margin-left:15px;
+    background-color: #f7f7fa;
+    border-radius: 20px;
+    width: 500px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.descriptionOne {
+    padding: 10px;
+    font-size: 16px;
+    color: #003255;
+}
+.name {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+}
+.hr {
+    margin: 10px 0;
+    padding: 0;
+    height: 0;
+    border: none;
+    border-top: 2px dashed #667084;
+
+}

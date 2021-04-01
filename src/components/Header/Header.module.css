@@ -1,0 +1,16 @@
+.header {
+    grid-area: h;
+    display: flex;
+    width: 1200px;
+    height: 70px;
+    background-color: #29587f;
+
+}
+.header img {
+    padding: 5px;
+    width: 60px;
+}
+.header h2 {
+    color: white;
+
+}
