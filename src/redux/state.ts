@@ -1,5 +1,6 @@
-import {renderTree} from "../render";
-
+let renderTree = (state: RootStateType) => {
+    console.log("State changed!")
+}
 
 
 export type ProfileInfoDataType = {
@@ -146,17 +147,24 @@ export const sendMessage = () => {
         time: '10:25'
     };
     state.messagePage.messagesData.push(newMessage);
-    renderTree(state);
+ 
     state.messagePage.newMessage = "";
+    renderTree(state);
 }
 
 export const updatePostText = (newText: string ) => {
     state.profilePage.newPostText = newText;
     renderTree(state);
+   
 }
+
 export const updateMessageText = (newMessage: string ) => {
     state.messagePage.newMessage = newMessage;
     renderTree(state);
+  
 }
 
+export const subscribe = (observer: (state: RootStateType) => void) => {
+    renderTree = observer
+}
 export default state;
