@@ -75,9 +75,9 @@ let state: RootStateType = {
             }
         ],
         postData: [
-            {id: 1, message: "Hi brother!", like: 35},
-            {id: 2, message: "it's an amazing chance for me to contact you!", like: 5535},
-            {id: 3, message: "Thank you for your hard work!", like: 55}
+            {id: 1, message: "Love, awareness and full invetment !", like: 35},
+            {id: 2, message: "What you are is God's gift to you, what you'll become is your gift to God.", like: 5535},
+            {id: 3, message: "true love is never giving up!", like: 55}
 
         ],
         newPostText: ""
