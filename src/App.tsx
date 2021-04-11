@@ -5,20 +5,18 @@ import Navbar from "./components/Navbar/Navbar";
 import Dialogs from "./components/Main/Dialogs/Dialogs";
 import News from "./components/Main/News/News";
 import Music from "./components/Main/Music/Music";
-import Settings from "./components/Main/Settings/Settings";
+import Settings from "./components/Main/SettingsNetwork/Settings";
 import { BrowserRouter, Route } from "react-router-dom";
-import { RootStateType } from "./redux/state";
+import { ActionsTypes, RootStateType } from "./redux/state";
 import Profile from "./components/Profile/Profile";
 
 type PropsType = {
   state: RootStateType;
-  addPost: () => void;
-  sendMessage: () => void;
-  updatePostText: (newText: string) => void;
-  updateMessageText: (newMessage: string) => void;
+  dispatch: (action: ActionsTypes) => void
 };
 
 function App(props: PropsType) {
+  debugger
   return (
     <BrowserRouter>
       <div className="app-wrapper">
@@ -30,8 +28,8 @@ function App(props: PropsType) {
             render={() => (
               <Profile
                 profilePage={props.state.profilePage}
-                addPost={props.addPost}
-                updatePostText={props.updatePostText}
+                dispatch={props.dispatch}
+               
               />
             )}
           />
@@ -41,8 +39,7 @@ function App(props: PropsType) {
               <Dialogs
                 dialogsData={props.state.dialogsPage.dialogsData}
                 messagePage={props.state.messagePage}
-                sendMessage={props.sendMessage}
-                updateMessageText={props.updateMessageText}
+                dispatch={props.dispatch}
               />
             )}
           />

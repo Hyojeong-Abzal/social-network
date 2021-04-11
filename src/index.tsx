@@ -1,26 +1,16 @@
 import "./index.css";
-import reportWebVitals from "./reportWebVitals";
-import state, { subscribe } from "./redux/state";
+import { RootStateType, store } from "./redux/state";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import {
-  addPost,
-  RootStateType,
-  sendMessage,
-  updateMessageText,
-  updatePostText,
-} from "./redux/state";
 
-const renderTree = (state: RootStateType) => {
+const renderTree = (_state: RootStateType) => {
+  debugger;
   ReactDOM.render(
     <React.StrictMode>
       <App
-        state={state}
-        addPost={addPost}
-        sendMessage={sendMessage}
-        updatePostText={updatePostText}
-        updateMessageText={updateMessageText}
+        state={_state}
+        dispatch={store.dispatch.bind(store)}
       />
     </React.StrictMode>,
 
@@ -28,8 +18,6 @@ const renderTree = (state: RootStateType) => {
   );
 };
 
-renderTree(state);
+renderTree(store.getState());
 
-subscribe(renderTree);
-
-reportWebVitals();
+store.subscribe(renderTree);
