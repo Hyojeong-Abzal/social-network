@@ -9,9 +9,10 @@ import Settings from "./components/Main/SettingsNetwork/Settings";
 import { BrowserRouter, Route } from "react-router-dom";
 import { ActionsTypes, RootStateType } from "./redux/state";
 import Profile from "./components/Profile/Profile";
+import { AppStateType } from "./redux/redux-store";
 
 type PropsType = {
-  state: RootStateType;
+  state: AppStateType;
   dispatch: (action: ActionsTypes) => void
 };
 

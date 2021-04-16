@@ -1,15 +1,15 @@
 import "./index.css";
-import { RootStateType, store } from "./redux/state";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import { AppStateType, store } from "./redux/redux-store";
 
-const renderTree = (_state: RootStateType) => {
+const renderTree = (state: AppStateType) => {
   debugger;
   ReactDOM.render(
     <React.StrictMode>
       <App
-        state={_state}
+        state={state}
         dispatch={store.dispatch.bind(store)}
       />
     </React.StrictMode>,
@@ -20,4 +20,7 @@ const renderTree = (_state: RootStateType) => {
 
 renderTree(store.getState());
 
-store.subscribe(renderTree);
+store.subscribe(() => {
+  let state = store.getState();
+  renderTree(state)
+});
