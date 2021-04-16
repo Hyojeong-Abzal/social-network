@@ -3,10 +3,9 @@ import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import {
   ActionsTypes,
-  AddPostAC,
   PostDatatype,
-  UpdatePostAC,
 } from "../../../redux/state";
+import { AddPostAC, UpdatePostAC } from "../../../redux/profilePageReducer";
 
 type MyPostsPropsType = {
   postData: PostDatatype[];

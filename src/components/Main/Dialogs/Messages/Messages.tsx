@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from "react";
 import s from "./Messages.module.css";
-import { ActionsTypes, MessagesDataType, sendMessageAC, updateMessageAC } from "../../../../redux/state";
+import { ActionsTypes, MessagesDataType } from "../../../../redux/state";
+import { sendMessageAC, updateMessageAC } from "../../../../redux/messagePageReducer";
 
 
 
@@ -19,7 +20,7 @@ const Messages = (props: messagesPropsType) => {
     props.dispatch(sendMessageAC());
   };
   const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    props.dispatch( updateMessageAC(e.currentTarget.value));
+    props.dispatch(updateMessageAC(e.currentTarget.value));
   };
 
   return (
