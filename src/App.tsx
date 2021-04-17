@@ -9,36 +9,34 @@ import { StoreType } from "./redux/redux-store";
 import { DialogsContainer } from "./components/Main/Dialogs/DialogsContainer";
 
 type PropsType = {
-  store: StoreType;
+  // store: StoreType;
 };
 
 function App(props: PropsType) {
   return (
-    <BrowserRouter>
-      <div className="app-wrapper">
-        <Header />
-        <Navbar />
-        <div className="app-wrapper-content">
-          <Route
-            path="/Profile"
-            render={() => (
-              <Profile
-                store={props.store}
-              />
-            )}
-          />
-          <Route
-            path="/Dialogs"
-            render={() => (
-              <DialogsContainer
-                store={props.store}
-              />
-            )}
-          />
-          <Route path="/Settings" component={Settings} />
-        </div>
+    <div className="app-wrapper">
+      <Header />
+      <Navbar />
+      <div className="app-wrapper-content">
+        <Route
+          path="/Profile"
+          render={() => (
+            <Profile
+            // store={props.store}
+            />
+          )}
+        />
+        <Route
+          path="/Dialogs"
+          render={() => (
+            <DialogsContainer
+            // store={props.store}
+            />
+          )}
+        />
+        <Route path="/Settings" component={Settings} />
       </div>
-    </BrowserRouter>
+    </div>
   );
 }
 
