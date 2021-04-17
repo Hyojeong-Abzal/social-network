@@ -1,11 +1,11 @@
+import { dialogsPageReducer } from './dialogsPageReducer';
 import { combineReducers, createStore } from 'redux'
-import { messagePageReducer } from './messagePageReducer'
 import { profilePageReducer } from './profilePageReducer'
 
 // rootReducer type
 let rootReducer = combineReducers({
   profilePage: profilePageReducer,
-  messagePage: messagePageReducer,
+  dialogsPage: dialogsPageReducer,
 })
 
 //store type
@@ -21,3 +21,4 @@ export type AppStateType = ReturnType<RootReducerType>
 // потому что в будущем все будет меняться. Сделай все как у него и не парься и не отвлекай других
 // поидее это все фигня, потом когда дойдешь до конца, все станет очень легко
 // твоя цель максимально и оптимально быстро дойти до конца, но если будешь делать свое, то отвечаю будет намного сложнее
+// чтобы врестка не пропала, просто в самой верстке можно сделать статичные данныеи из отоброжать на сайте.

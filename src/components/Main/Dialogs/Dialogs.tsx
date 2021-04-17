@@ -3,21 +3,18 @@ import s from "./Dialogs.module.css";
 import { NavLink } from "react-router-dom";
 import Messages from "./Messages/Messages";
 import {
-  ActionsTypes,
-  DialogsDateType,
-  MessagePageType,
-} from "../../../redux/state";
+  ActionsTypes, DialogsPageType,
+} from "../../../redux/store";
 
 type PropsType = {
-  dialogsData: DialogsDateType[];
-  messagePage: MessagePageType;
+  dialogsPage: DialogsPageType;
   dispatch: (action: ActionsTypes) => void;
 };
 
 const Dialogs = (props: PropsType) => {
-  debugger;
 
-  let dialogElement = props.dialogsData.map((d) => (
+
+  let dialogElement = props.dialogsPage.dialogs.map((d) => (
     <Dialog id={d.id} name={d.name} />
   ));
 
@@ -25,9 +22,9 @@ const Dialogs = (props: PropsType) => {
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>{dialogElement}</div>
       <Messages
-        messegeData={props.messagePage.messagesData}
+        messegeData={props.dialogsPage.messages}
         dispatch={props.dispatch}
-        newMessage={props.messagePage.newMessage}
+        newMessage={props.dialogsPage.newMessageText}
       />
     </div>
   );

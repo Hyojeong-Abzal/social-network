@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActionsTypes, PostDatatype, ProfilePageType } from './state';
+import { ActionsTypes, PostsType, ProfilePageType } from './store';
 
 // for profile
 
@@ -20,20 +20,8 @@ export const UpdatePostAC = (newText: string) => {
 const ADD_POST = "ADD-POST"
 const UPDATE_POST_TEXT = "UPDATE-POST-TEXT"
 
-const initialPageReducerState = {
-    profileInfoData: [
-        {
-            id: 1,
-            name: 'Abzal Suan',
-            age: 21,
-            isMarried: ' with Trisha Navarro',
-            born: 'Almaty, Kazakhstan',
-            live: 'Moscow, Russia',
-            status:
-                ' from KZ 🍏 Healthy Life-style ⚡ Volunteer 🎯 student in Moscow',
-        },
-    ],
-    postData: [
+const initialState = {
+    posts: [
         { id: 1, message: 'Love, awareness and full invetment !', like: 35 },
         {
             id: 2,
@@ -46,15 +34,15 @@ const initialPageReducerState = {
     newPostText: '',
 }
 
-export const profilePageReducer = (state: ProfilePageType = initialPageReducerState, action: ActionsTypes) => {
+export const profilePageReducer = (state: ProfilePageType = initialState , action: ActionsTypes) => {
     switch (action.type) {
         case ADD_POST:
-            const newPost: PostDatatype = {
+            const newPost: PostsType = {
                 id: new Date().getTime(),
                 message: state.newPostText,
                 like: 0
             };
-            state.postData.push(newPost);
+            state.posts.push(newPost);
             state.newPostText = "";
             return state;
         case UPDATE_POST_TEXT:

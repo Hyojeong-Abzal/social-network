@@ -1,12 +1,12 @@
 import React, { ChangeEvent } from "react";
 import s from "./Messages.module.css";
-import { ActionsTypes, MessagesDataType } from "../../../../redux/state";
-import { sendMessageAC, updateMessageAC } from "../../../../redux/messagePageReducer";
+import { ActionsTypes, MessagesType } from "../../../../redux/store";
+import { sendMessageAC, updateMessageAC } from "../../../../redux/dialogsPageReducer";
 
 
 
 type messagesPropsType = {
-  messegeData: MessagesDataType[];
+  messegeData: MessagesType[];
   dispatch: (action: ActionsTypes) => void;
   newMessage: string;
 };
@@ -35,19 +35,13 @@ const Messages = (props: messagesPropsType) => {
 };
 
 type MessagePropsType = {
-  message: MessagesDataType;
+  message: MessagesType;
 };
 
 function Message(props: MessagePropsType) {
   return (
     <div className={s.wrapper}>
-      <img className={s.avatar} src={props.message.avatar} alt="avatar" />
-      <div className={s.angle}></div>
-      <div className={s.item}>
-        <div className={s.name}>{props.message.name}</div>
-        <div className={s.text}>{props.message.message}</div>
-        <div className={s.time}>{props.message.time}</div>
-      </div>
+      <div>{props.message.message}</div>
     </div>
   );
 }

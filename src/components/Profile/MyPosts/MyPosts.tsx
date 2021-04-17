@@ -2,19 +2,18 @@ import React, { ChangeEvent } from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import {
-  ActionsTypes,
-  PostDatatype,
-} from "../../../redux/state";
+  ActionsTypes, PostsType,
+} from "../../../redux/store";
 import { AddPostAC, UpdatePostAC } from "../../../redux/profilePageReducer";
 
 type MyPostsPropsType = {
-  postData: PostDatatype[];
+  posts: PostsType[];
   dispatch: (action: ActionsTypes) => void;
   newPostText: string;
 };
 
 function MyPosts(props: MyPostsPropsType) {
-  let postData = props.postData.map((post) => (
+  let postData = props.posts.map((post) => (
     <Post key={post.id} post={post} />
   ));
 

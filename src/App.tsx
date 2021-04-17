@@ -3,11 +3,9 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Dialogs from "./components/Main/Dialogs/Dialogs";
-import News from "./components/Main/News/News";
-import Music from "./components/Main/Music/Music";
 import Settings from "./components/Main/SettingsNetwork/Settings";
 import { BrowserRouter, Route } from "react-router-dom";
-import { ActionsTypes, RootStateType } from "./redux/state";
+import { ActionsTypes, } from "./redux/store";
 import Profile from "./components/Profile/Profile";
 import { AppStateType } from "./redux/redux-store";
 
@@ -30,7 +28,7 @@ function App(props: PropsType) {
               <Profile
                 profilePage={props.state.profilePage}
                 dispatch={props.dispatch}
-               
+
               />
             )}
           />
@@ -38,16 +36,10 @@ function App(props: PropsType) {
             path="/Dialogs"
             render={() => (
               <Dialogs
-                dialogsData={props.state.dialogsPage.dialogsData}
-                messagePage={props.state.messagePage}
+                dialogsPage={props.state.dialogsPage}
                 dispatch={props.dispatch}
               />
             )}
-          />
-          <Route path="/News" component={News} />
-          <Route
-            path="/Music"
-            component={() => <Music musicsPage={props.state.musicsPage} />}
           />
           <Route path="/Settings" component={Settings} />
         </div>
