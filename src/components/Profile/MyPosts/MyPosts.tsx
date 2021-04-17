@@ -7,9 +7,10 @@ import {
 import { AddPostAC, UpdatePostAC } from "../../../redux/profilePageReducer";
 
 type MyPostsPropsType = {
-  posts: PostsType[];
-  dispatch: (action: ActionsTypes) => void;
   newPostText: string;
+  posts: PostsType[];
+  addPost: () => void
+  updatePostText: (newValue: string) => void
 };
 
 function MyPosts(props: MyPostsPropsType) {
@@ -18,11 +19,12 @@ function MyPosts(props: MyPostsPropsType) {
   ));
 
   const addPost = () => {
-    props.dispatch(AddPostAC());
+    props.addPost();
   };
 
   const updatePostText = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    props.dispatch(UpdatePostAC(e.currentTarget.value));
+    let NewValue = e.currentTarget.value;
+    props.updatePostText(NewValue);
   };
   return (
     <div className={s.wrapper}>

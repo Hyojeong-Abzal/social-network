@@ -34,7 +34,7 @@ const initialState = {
     newPostText: '',
 }
 
-export const profilePageReducer = (state: ProfilePageType = initialState , action: ActionsTypes) => {
+export const profilePageReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case ADD_POST:
             const newPost: PostsType = {
@@ -42,7 +42,8 @@ export const profilePageReducer = (state: ProfilePageType = initialState , actio
                 message: state.newPostText,
                 like: 0
             };
-            state.posts.push(newPost);
+            state.posts = [newPost].concat(state.posts) // [объект]добавляется в начало массива
+            // state.posts.push(newPost); просто добавляет (пушит) объект в массив
             state.newPostText = "";
             return state;
         case UPDATE_POST_TEXT:
