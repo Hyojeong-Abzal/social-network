@@ -2,9 +2,9 @@ import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { AppStateType, store, StoreType } from "./redux/redux-store";
-import { Provider, StoreContext } from "./StoreContext";
+import { AppStateType, store } from "./redux/redux-store";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 
 const renderTree = (state: AppStateType) => {
 

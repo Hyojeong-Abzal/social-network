@@ -4,7 +4,6 @@ import { MyPostsContainer } from './MyPosts/MyPostsContainer';
 import { StoreType } from '../../redux/redux-store';
 
 type ProfilePropsType = {
-    // store: StoreType;
 }
 
 function Profile(props: ProfilePropsType) {

@@ -3,13 +3,11 @@ import "./App.css";
 import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Settings from "./components/Main/SettingsNetwork/Settings";
-import { BrowserRouter, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import Profile from "./components/Profile/Profile";
-import { StoreType } from "./redux/redux-store";
 import { DialogsContainer } from "./components/Main/Dialogs/DialogsContainer";
 
 type PropsType = {
-  // store: StoreType;
 };
 
 function App(props: PropsType) {
@@ -21,17 +19,13 @@ function App(props: PropsType) {
         <Route
           path="/Profile"
           render={() => (
-            <Profile
-            // store={props.store}
-            />
+            <Profile />
           )}
         />
         <Route
           path="/Dialogs"
           render={() => (
-            <DialogsContainer
-            // store={props.store}
-            />
+            <DialogsContainer />
           )}
         />
         <Route path="/Settings" component={Settings} />

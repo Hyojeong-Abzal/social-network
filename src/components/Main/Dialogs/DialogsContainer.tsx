@@ -1,31 +1,30 @@
 import React from "react";
 import Dialogs from "./Dialogs";
-import { StoreType } from "../../../redux/redux-store";
+import { AppStateType, StoreType } from "../../../redux/redux-store";
 import { sendMessageAC, updateMessageAC } from "../../../redux/dialogsPageReducer";
-import { StoreContext } from "../../../StoreContext";
+import { connect } from "react-redux";
+import { Dispatch } from "redux";
 
-type PropsType = {
-  // store: StoreType
+type MapDispatchPropsType = {
+  onChangeHandler: (newValue: string) => void
+  sendMessage: () => void
 };
 
-export const DialogsContainer = (props: PropsType) => {
-  return <StoreContext.Consumer>
-    {store => {
-      const state = store.getState().dialogsPage;
-      const sendMessage = () => {
-        store.dispatch(sendMessageAC());
-      };
-      const onChangeHandler = (newValue: string) => {
-        store.dispatch(updateMessageAC(newValue));
-      };
 
+let mapStateToProps = (state: AppStateType) => {
+  return {
+    state: state.dialogsPage
+  }
+}
+let mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
+  return {
+    onChangeHandler: (newValue: string) => { dispatch(updateMessageAC(newValue)); },
+    sendMessage: () => { dispatch(sendMessageAC()); }
 
-      return <Dialogs state={state} sendMessage={sendMessage} onChangeHandler={onChangeHandler} />
-    }}
-  </StoreContext.Consumer>
+  }
+}
 
-
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs);
 
 
 
-};

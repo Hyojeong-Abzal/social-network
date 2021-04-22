@@ -1,10 +1,7 @@
 import React, { ChangeEvent } from "react";
 import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
-import {
-  ActionsTypes, PostsType,
-} from "../../../redux/store";
-import { AddPostAC, UpdatePostAC } from "../../../redux/profilePageReducer";
+import { PostsType } from "../../../redux/store";
 
 type MyPostsPropsType = {
   newPostText: string;
@@ -19,6 +16,7 @@ function MyPosts(props: MyPostsPropsType) {
   ));
 
   const addPost = () => {
+    alert("I am trying!")
     props.addPost();
   };
 
