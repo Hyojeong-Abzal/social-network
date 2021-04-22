@@ -37,18 +37,20 @@ const initialState = {
 export const profilePageReducer = (state: ProfilePageType = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case ADD_POST:
-            const newPost: PostsType = {
-                id: new Date().getTime(),
-                message: state.newPostText,
-                like: 0
+            return {
+                ...state,
+                posts: [{
+                    id: new Date().getTime(),
+                    message: state.newPostText,
+                    like: 0
+                }, ...state.posts],
+                newPostText: ""
             };
-            state.posts = [newPost].concat(state.posts) // [объект]добавляется в начало массива
-            // state.posts.push(newPost); просто добавляет (пушит) объект в массив
-            state.newPostText = "";
-            return state;
         case UPDATE_POST_TEXT:
-            state.newPostText = action.newText;
-            return state
+            return {
+                ...state,
+                newPostText: action.newText
+            }
         default:
             return state
     }

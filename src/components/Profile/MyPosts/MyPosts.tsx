@@ -16,7 +16,6 @@ function MyPosts(props: MyPostsPropsType) {
   ));
 
   const addPost = () => {
-    alert("I am trying!")
     props.addPost();
   };
 
