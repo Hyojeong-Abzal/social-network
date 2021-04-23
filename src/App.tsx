@@ -6,6 +6,7 @@ import Settings from "./components/Main/SettingsNetwork/Settings";
 import { Route } from "react-router-dom";
 import Profile from "./components/Profile/Profile";
 import { DialogsContainer } from "./components/Main/Dialogs/DialogsContainer";
+import { UsersContainer } from "./components/Main/Users/UsersContainer";
 
 type PropsType = {
 };
@@ -26,6 +27,12 @@ function App(props: PropsType) {
           path="/Dialogs"
           render={() => (
             <DialogsContainer />
+          )}
+        />
+        <Route
+          path="/Users"
+          render={() => (
+            <UsersContainer />
           )}
         />
         <Route path="/Settings" component={Settings} />
