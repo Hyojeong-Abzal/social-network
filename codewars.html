@@ -9,15 +9,14 @@
 </head>
 <body>
 <script>
-    function even_or_odd(number) {
+function invert(array) {
+   if ( array.length > 0) {
+       return array.map( a => a * -1)
+   } else {
+       return []
+   }
+}
 
-        if (  number % 2 ||  != 0) {
-            return "Odd"
-        }
-        else {
-            return "Even"
-        }
-    }
 </script>
 </body>
 </html>
