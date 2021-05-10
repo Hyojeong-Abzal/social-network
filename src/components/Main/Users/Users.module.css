@@ -1,0 +1,8 @@
+.userPhoto {
+  width: 120px;
+  height: 90px;
+}
+
+.selected {
+  font-weight: bold;
+}
