@@ -4,9 +4,9 @@ import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Settings from "./components/Main/SettingsNetwork/Settings";
 import { Route } from "react-router-dom";
-import Profile from "./components/Profile/Profile";
 import { DialogsContainer } from "./components/Main/Dialogs/DialogsContainer";
 import { UsersContainer } from "./components/Main/Users/UsersContainer";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 type PropsType = {
 };
@@ -20,7 +20,7 @@ function App(props: PropsType) {
         <Route
           path="/Profile"
           render={() => (
-            <Profile />
+            <ProfileContainer />
           )}
         />
         <Route

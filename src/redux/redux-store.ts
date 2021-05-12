@@ -1,13 +1,13 @@
-import { dialogsPageReducer } from './dialogsPageReducer';
+import { dialogsPageReducer } from './dialogsPageReducer'
 import { combineReducers, createStore } from 'redux'
 import { profilePageReducer } from './profilePageReducer'
-import { userPageReducer } from './UserReducer';
+import { userPageReducer } from './UserReducer'
 
 // rootReducer type
 let rootReducer = combineReducers({
   profilePage: profilePageReducer,
   dialogsPage: dialogsPageReducer,
-  userPage: userPageReducer
+  userPage: userPageReducer,
 })
 
 //store type
@@ -18,6 +18,9 @@ export type StoreType = typeof store
 type RootReducerType = typeof rootReducer
 
 export type AppStateType = ReturnType<RootReducerType>
+
+/* @ts-ignore */
+window.store = store
 
 // типизацию прописали, осталось как у Димыча поменять State
 // потому что в будущем все будет меняться. Сделай все как у него и не парься и не отвлекай других

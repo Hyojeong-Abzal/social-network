@@ -1,24 +1,31 @@
 import React from 'react';
-import { act } from 'react-dom/test-utils';
 
-type ActionType = followActionType | unFollowActionType | updateUsersActionType | setCurrentPageActionType | setTotalUsersCountActionType
+type ActionType =
+    followActionType
+    | unFollowActionType
+    | updateUsersActionType
+    | setCurrentPageActionType
+    | setTotalUsersCountActionType
+    | toggleIsFetchingActionType
 
-export type followActionType = ReturnType<typeof unFollow>
-export type unFollowActionType = ReturnType<typeof follow>
+export type followActionType = ReturnType<typeof onUnFollow>
+export type unFollowActionType = ReturnType<typeof onFollow>
 export type updateUsersActionType = ReturnType<typeof updateUsers>
-export type setCurrentPageActionType = ReturnType<typeof setCurrentPage>
+export type setCurrentPageActionType = ReturnType<typeof changeCurrentPage>
 export type setTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
+export type toggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>
 
 
 
 
-export const unFollow = (id: number) => {
+
+export const onUnFollow = (id: number) => {
     return {
         type: UNFOLLOW,
         id
     } as const
 }
-export const follow = (id: number) => {
+export const onFollow = (id: number) => {
     return {
         type: FOLLOW,
         id
@@ -30,7 +37,7 @@ export const updateUsers = (users: Array<UsersType>) => {
         users
     } as const
 }
-export const setCurrentPage = (page: number) => {
+export const changeCurrentPage = (page: number) => {
     return {
         type: SET_CURRENT_PAGE,
         page
@@ -42,11 +49,20 @@ export const setTotalUsersCount = (totalCount: number) => {
         totalCount
     } as const
 }
+
+export const toggleIsFetching = (isFetching: boolean) => {
+    return {
+        type: TOGGLE_IS_FETCHING,
+        isFetching
+    } as const
+}
 const UNFOLLOW = "UNFOLLOW"
 const FOLLOW = "FOLLOW"
 const UPDATE_USERS = "UPDATE_USERS"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT"
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING"
+
 
 
 
@@ -64,13 +80,15 @@ export type UsersPageType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFetching: boolean
 }
 
 const initialState = {
     users: [],
-    pageSize: 5,
+    pageSize: 30,
     totalUsersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: true
 
 
 
@@ -105,6 +123,8 @@ export const userPageReducer = (state: UsersPageType = initialState, action: Act
             return { ...state, currentPage: action.page }
         case "SET_TOTAL_USERS_COUNT":
             return { ...state, totalUsersCount: action.totalCount }
+        case "TOGGLE_IS_FETCHING":
+            return { ...state, isFetching: action.isFetching }
         default:
             return state
     }

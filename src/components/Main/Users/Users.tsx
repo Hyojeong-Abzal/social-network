@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import userPhoto from "../../../assets/images/user.png"
 import { UsersType } from "../../../redux/UserReducer";
 import s from "./Users.module.css"
@@ -10,7 +11,7 @@ type PropsType = {
     totalUsersCount: number
     currentPage: number
     onFollow: (id: number) => void
-    onUnfollow: (id: number) => void
+    onUnFollow: (id: number) => void
     onPageChanged: (p: number) => void
 
 }
@@ -21,6 +22,7 @@ export const Users = (props: PropsType) => {
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
+
     return (
         <div>
             <div>
@@ -29,19 +31,25 @@ export const Users = (props: PropsType) => {
                 })}
             </div>
 
+
             {
                 props.users.map(users =>
                     <div key={users.id}>
                         <div>
-                            <img src={userPhoto} className={s.userPhoto} />
-                            {users.name}
+                            <NavLink to={'/Profile/ ' + users.id}>
+                                {/* @ts-ignore */}
+                                <img src={users.photos.small != null ? users.photos.small : userPhoto}
+                                    className={s.userPhoto} />
+                                {users.name}
+                            </NavLink>
+
                         </div>
                         <div>
                             {users.status}
                         </div>
                         <div>
                             {users.followed
-                                ? <button onClick={() => props.onUnfollow(users.id)}>Unfollow</button>
+                                ? <button onClick={() => props.onUnFollow(users.id)}>Unfollow</button>
                                 : <button onClick={() => props.onFollow(users.id)}>Follow</button>}
                         </div>
 
