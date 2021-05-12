@@ -7,8 +7,30 @@ export type AddPostActionType = ReturnType<typeof AddPostAC>
 export type UpdatePostActionType = ReturnType<typeof UpdatePostAC>
 export type setUserProfileActionType = ReturnType<typeof setUserProfileAC>
 
+
+export type profileType = {
+    aboutMe: string,
+    contacts: {
+        facebook: string,
+        website: null,
+        vk: string,
+        twitter: string,
+        instagram: string,
+        youtube: null,
+        github: string,
+        mainLink: null
+    },
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string,
+    fullName: string,
+    userId: number,
+    photos: {
+        small: string,
+        large: string
+    }
+}
 export type ProfilePageType = {
-    profile: null
+    profile: profileType | null
     posts: PostsType[]
     newPostText: string
 }
@@ -29,7 +51,7 @@ export const UpdatePostAC = (newText: string) => {
         newText: newText,
     } as const
 }
-export const setUserProfileAC = (profile: string) => {
+export const setUserProfileAC = (profile: profileType | null) => {
     return {
         type: SET_USER_PROFILE,
         profile
@@ -75,6 +97,7 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
         case 'SET_USER_PROFILE':
             return {
                 ...state,
+                profile: action.profile
             }
         default:
             return state
