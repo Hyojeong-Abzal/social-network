@@ -24,6 +24,8 @@ export const Users = (props: PropsType) => {
         pages.push(i)
     }
 
+    debugger
+
     return (
         <div>
             <div>

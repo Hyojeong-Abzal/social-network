@@ -1,11 +1,19 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { AppStateType } from "../../../redux/redux-store";
-import { onFollow, changeCurrentPage, setTotalUsersCount, toggleIsFetching, onUnFollow, updateUsers, UsersType } from "../../../redux/UserReducer";
-import * as axios from "axios";
-import { Users } from "./Users";
-import { Preloader } from "../../common/preloader/Preloader";
+import axios from 'axios';
+import React from 'react';
+import { connect } from 'react-redux';
+
+import { AppStateType } from '../../../redux/redux-store';
+import {
+  changeCurrentPage,
+  onFollow,
+  onUnFollow,
+  setTotalUsersCount,
+  toggleIsFetching,
+  updateUsers,
+  UsersType,
+} from '../../../redux/UserReducer';
+import { Preloader } from '../../common/preloader/Preloader';
+import { Users } from './Users';
 
 
 
@@ -42,9 +50,9 @@ export class UsersContainerClass extends React.Component<UserPropsType> {
 
   componentDidMount() {
     this.props.toggleIsFetching(true)
-    axios.default.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}, {
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
       withCredentials: true
-  }`).then(response => {
+  }).then(response => {
       this.props.updateUsers(response.data.items)
       this.props.setTotalUsersCount(response.data.totalCount)
       this.props.toggleIsFetching(false)
@@ -53,9 +61,9 @@ export class UsersContainerClass extends React.Component<UserPropsType> {
   onPageChanged = (p: number) => {
     this.props.toggleIsFetching(true)
     this.props.changeCurrentPage(p)
-    axios.default.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}, {
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`, {
       withCredentials: true
-  }`).then(response => {
+  }).then(response => {
       this.props.updateUsers(response.data.items)
       this.props.toggleIsFetching(false)
     })
