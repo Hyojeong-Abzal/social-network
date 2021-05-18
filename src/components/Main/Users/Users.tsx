@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import userPhoto from "../../../assets/images/user.png"
@@ -49,8 +50,41 @@ export const Users = (props: PropsType) => {
                         </div>
                         <div>
                             {users.followed
-                                ? <button onClick={() => props.onUnFollow(users.id)}>Unfollow</button>
-                                : <button onClick={() => props.onFollow(users.id)}>Follow</button>}
+                                ? <button onClick={() =>
+
+                                    axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${users.id}`, {
+                                        withCredentials: true,
+                                        headers: {
+                                            "API-KEY": "5c3d7df5-b9a4-40af-905c-224c75d0849c"
+                                        }
+                                    }).then(response => {
+
+                                        if (response.data.resultCode === 0) {
+
+                                            props.onUnFollow(users.id)
+
+                                        }
+                                    })
+                                }>
+                                    Unfollow
+                                    </button>
+                                : <button onClick={() =>
+                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${users.id}`, {}, {
+                                        withCredentials: true,
+                                        headers: {
+                                            "API-KEY": "5c3d7df5-b9a4-40af-905c-224c75d0849c"
+                                        }
+                                    }).then(response => {
+
+                                        if (response.data.resultCode === 0) {
+
+                                            props.onFollow(users.id)
+
+                                        }
+                                    })
+                                }>
+                                    Follow
+                                    </button>}
                         </div>
 
                     </div>
