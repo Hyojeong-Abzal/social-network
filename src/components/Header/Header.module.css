@@ -1,16 +1,24 @@
 .header {
-    grid-area: h;
-    display: flex;
-    width: 1200px;
-    height: 70px;
-    background-color: #29587f;
-
+  grid-area: h;
+  display: flex;
+  justify-content: space-between;
+  width: 100vw;
+  height: 70px;
+  background-color: #29587f;
 }
 .header img {
-    padding: 5px;
-    width: 60px;
+  padding: 5px;
+  width: 60px;
 }
 .header h2 {
-    color: white;
+  color: white;
+}
 
+.loginBlok {
+  width: 70px;
+  padding: 10px;
+  color: white;
+}
+.loginBlok a {
+  color: white;
 }

@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
-import Header from "./components/Header/Header";
 import Navbar from "./components/Navbar/Navbar";
 import Settings from "./components/Main/SettingsNetwork/Settings";
 import { Route } from "react-router-dom";
 import { DialogsContainer } from "./components/Main/Dialogs/DialogsContainer";
 import { UsersContainer } from "./components/Main/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 type PropsType = {
 };
@@ -14,7 +14,7 @@ type PropsType = {
 function App(props: PropsType) {
   return (
     <div className="app-wrapper">
-      <Header />
+      <HeaderContainer />
       <Navbar />
       <div className="app-wrapper-content">
         <Route

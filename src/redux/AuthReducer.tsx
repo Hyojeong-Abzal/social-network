@@ -26,10 +26,10 @@ export type AythReducerType = {
     messages: [] | null
     data: {
         id: number | null
-        email: string | null
         login: string | null
+        email: string | null
     }
-    isAuth: boolean | null
+    isAuth: boolean
 }
 
 const initialState: AythReducerType = {
@@ -37,8 +37,8 @@ const initialState: AythReducerType = {
     messages: [],
     data: {
         id: null,
-        email: null,
-        login: null
+        login: null,
+        email: null
     },
     isAuth: false
 }
