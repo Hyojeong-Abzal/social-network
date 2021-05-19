@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
+import { usersAPI } from '../../Api/api';
 import { AythReducerType, setLogin } from '../../redux/AuthReducer';
 import { AppStateType } from '../../redux/redux-store';
 import Header from './Header';
@@ -14,12 +15,10 @@ type mapDispatchtoPropsType = {
 
 export class HeaderContainer extends React.Component<HeaderPropsType>  {
     componentDidMount() {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
-        })
-            .then(response => {
-                if (response.data.resultCode === 0) {
-                    let { id, email, login } = response.data.data;
+        usersAPI.getLogin()
+            .then(data => {
+                if (data.resultCode === 0) {
+                    let { id, email, login } = data.data;
                     this.props.setLogin(id, email, login)
                 }
             })
