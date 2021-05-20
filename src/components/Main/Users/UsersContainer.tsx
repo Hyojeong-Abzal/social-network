@@ -7,6 +7,7 @@ import { AppStateType } from '../../../redux/redux-store';
 import {
   changeCurrentPage,
   onFollow,
+  isFollowingAC,
   onUnFollow,
   setTotalUsersCount,
   toggleIsFetching,
@@ -35,12 +36,14 @@ type UserPropsType = {
   totalUsersCount: number
   currentPage: number
   isFetching: boolean
+  isFollowing: number[]
   onFollow: (id: number) => void
   onUnFollow: (id: number) => void
   updateUsers: (users: Array<UsersType>) => void
   changeCurrentPage: (page: number) => void
   setTotalUsersCount: (totalCount: number) => void
   toggleIsFetching: (isFetching: boolean) => void
+  isFollowingAC: (isFetching: boolean, userId: number) => void
 
 
 }
@@ -73,13 +76,7 @@ export class UsersContainerClass extends React.Component<UserPropsType> {
 
     return <>
       {this.props.isFetching ? <Preloader /> : ""}
-      <Users
-        users={this.props.users}
-        pageSize={this.props.pageSize}
-        totalUsersCount={this.props.totalUsersCount}
-        currentPage={this.props.currentPage}
-        onFollow={this.props.onFollow}
-        onUnFollow={this.props.onUnFollow}
+      <Users {...this.props}
         onPageChanged={this.onPageChanged}
       />
     </>
@@ -100,23 +97,14 @@ let mapStateToProps = (state: AppStateType) => {
     pageSize: state.userPage.pageSize,
     totalUsersCount: state.userPage.totalUsersCount,
     currentPage: state.userPage.currentPage,
-    isFetching: state.userPage.isFetching
+    isFetching: state.userPage.isFetching,
+    isFollowing: state.userPage.isFollowing
 
   }
 }
-// let mapDispatchToProps = (dispatch: Dispatch): MapDispatchPropsType => {
-//   return {
-//     onFollow: (id: number) => { dispatch(onFollow(id)); },
-//     onUnFollow: (id: number) => { dispatch(onUnFollow(id)); },
-//     updateUsers: (users: Array<UsersType>) => { dispatch(updateUsers(users)); },
-//     changeCurrentPage: (page: number) => { dispatch(changeCurrentPage(page)) },
-//     setTotalUsersCount: (totalCount: number) => { dispatch(setTotalUsersCount(totalCount)) },
-//     toggleIsFetching: (isFetching: boolean) => { dispatch(toggleIsFetching(isFetching)) }
 
-//   }
-// }
 
 export const UsersContainer = connect(mapStateToProps, {
-  onFollow, onUnFollow, updateUsers, changeCurrentPage, setTotalUsersCount, toggleIsFetching
+  onFollow, onUnFollow, updateUsers, changeCurrentPage, setTotalUsersCount, toggleIsFetching, isFollowingAC
 })(UsersContainerClass);
 

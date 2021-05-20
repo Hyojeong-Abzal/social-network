@@ -12,9 +12,11 @@ type PropsType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    isFollowing: number[]
     onFollow: (id: number) => void
     onUnFollow: (id: number) => void
     onPageChanged: (p: number) => void
+    isFollowingAC: (isFetching: boolean, userId: number) => void
 
 }
 
@@ -53,17 +55,21 @@ export const Users = (props: PropsType) => {
                         </div>
                         <div>
                             {users.followed
-                                ? <button onClick={() =>
+                                ? <button disabled={props.isFollowing.some(id => id === users.id)} onClick={() => {
+                                    props.isFollowingAC(true, users.id);
                                     usersAPI.unFollow(users.id)
                                         .then(data => {
                                             if (data.resultCode === 0) {
                                                 props.onUnFollow(users.id)
+                                                props.isFollowingAC(false, users.id);
+
                                             }
                                         })
-                                }>
+                                }}>
                                     Unfollow
                                     </button>
-                                : <button onClick={() =>
+                                : <button disabled={props.isFollowing.some(id => id === users.id)} onClick={() => {
+                                    props.isFollowingAC(true, users.id);
                                     axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${users.id}`, {}, {
                                         withCredentials: true,
                                         headers: {
@@ -74,10 +80,11 @@ export const Users = (props: PropsType) => {
                                         if (response.data.resultCode === 0) {
 
                                             props.onFollow(users.id)
+                                            props.isFollowingAC(false, users.id);
 
                                         }
                                     })
-                                }>
+                                }}>
                                     Follow
                                     </button>}
                         </div>

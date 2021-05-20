@@ -7,6 +7,7 @@ type ActionType =
     | setCurrentPageActionType
     | setTotalUsersCountActionType
     | toggleIsFetchingActionType
+    | isFollowingActionType
 
 export type followActionType = ReturnType<typeof onUnFollow>
 export type unFollowActionType = ReturnType<typeof onFollow>
@@ -14,6 +15,7 @@ export type updateUsersActionType = ReturnType<typeof updateUsers>
 export type setCurrentPageActionType = ReturnType<typeof changeCurrentPage>
 export type setTotalUsersCountActionType = ReturnType<typeof setTotalUsersCount>
 export type toggleIsFetchingActionType = ReturnType<typeof toggleIsFetching>
+export type isFollowingActionType = ReturnType<typeof isFollowingAC>
 
 
 
@@ -56,12 +58,22 @@ export const toggleIsFetching = (isFetching: boolean) => {
         isFetching
     } as const
 }
+
+export const isFollowingAC = (isFetching: boolean, userId: number) => {
+    return {
+        type: IS_FOLLOWING,
+        isFetching,
+        userId
+    } as const
+}
 const UNFOLLOW = "UNFOLLOW"
 const FOLLOW = "FOLLOW"
 const UPDATE_USERS = "UPDATE_USERS"
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE"
 const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USERS_COUNT"
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING"
+const IS_FOLLOWING = "IS_FOLLOWING"
+
 
 
 
@@ -81,6 +93,7 @@ export type UsersPageType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
+    isFollowing: number[]
 }
 
 const initialState = {
@@ -88,7 +101,8 @@ const initialState = {
     pageSize: 30,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: true
+    isFetching: true,
+    isFollowing: []
 
 
 
@@ -125,6 +139,13 @@ export const userPageReducer = (state: UsersPageType = initialState, action: Act
             return { ...state, totalUsersCount: action.totalCount }
         case "TOGGLE_IS_FETCHING":
             return { ...state, isFetching: action.isFetching }
+        case 'IS_FOLLOWING':
+            return {
+                ...state,
+                isFollowing: action.isFetching
+                    ? [...state.isFollowing, action.userId]
+                    : state.isFollowing.filter(id => id != action.userId)
+            }
         default:
             return state
     }
