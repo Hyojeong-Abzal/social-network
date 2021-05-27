@@ -15,7 +15,7 @@ type PropsType = {
     isFollowing: number[]
     onFollow: (id: number) => void
     onUnFollow: (id: number) => void
-    onPageChanged: (p: number) => void
+    onPageChanged: (p: number, pageSize: number) => void
     isFollowingAC: (isFetching: boolean, userId: number) => void
 
 }
@@ -33,7 +33,7 @@ export const Users = (props: PropsType) => {
         <div>
             <div>
                 {pages.map((p, index) => {
-                    return <span key={index} onClick={() => props.onPageChanged(p)} className={props.currentPage === p ? s.selected : ""} > {p}</span>
+                    return <span key={index} onClick={() => props.onPageChanged(p, props.pageSize)} className={props.currentPage === p ? s.selected : ""} > {p}</span>
                 })}
             </div>
 

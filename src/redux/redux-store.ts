@@ -1,19 +1,20 @@
 import { dialogsPageReducer } from './dialogsPageReducer'
-import { combineReducers, createStore } from 'redux'
+import { applyMiddleware, combineReducers, createStore } from 'redux'
 import { profilePageReducer } from './profilePageReducer'
 import { userPageReducer } from './UserReducer'
 import { authReducer } from './AuthReducer'
+import thunkMiddlewere from 'redux-thunk'
 
 // rootReducer type
 let rootReducer = combineReducers({
   profilePage: profilePageReducer,
   dialogsPage: dialogsPageReducer,
   userPage: userPageReducer,
-  auth: authReducer
+  auth: authReducer,
 })
 
 //store type
-export let store = createStore(rootReducer)
+export let store = createStore(rootReducer, applyMiddleware(thunkMiddlewere))
 
 export type StoreType = typeof store
 

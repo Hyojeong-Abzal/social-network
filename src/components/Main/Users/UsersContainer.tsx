@@ -13,6 +13,8 @@ import {
   toggleIsFetching,
   updateUsers,
   UsersType,
+  getUsersThunk,
+  onPageChanged
 } from '../../../redux/UserReducer';
 import { Preloader } from '../../common/preloader/Preloader';
 import { Users } from './Users';
@@ -27,6 +29,7 @@ type MapDispatchPropsType = {
   changeCurrentPage: (page: number) => void
   setTotalUsersCount: (totalCount: number) => void
   toggleIsFetching: (isFetching: boolean) => void
+  getUsersThunk: (currentPage: number, pageSize: number) => void
 
 };
 
@@ -44,6 +47,8 @@ type UserPropsType = {
   setTotalUsersCount: (totalCount: number) => void
   toggleIsFetching: (isFetching: boolean) => void
   isFollowingAC: (isFetching: boolean, userId: number) => void
+  getUsersThunk: (currentPage: number, pageSize: number) => void
+  onPageChanged: (p: number, pageSize: number) => void
 
 
 }
@@ -53,13 +58,8 @@ export class UsersContainerClass extends React.Component<UserPropsType> {
 
 
   componentDidMount() {
-    this.props.toggleIsFetching(true)
-    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).
-      then(data => {
-        this.props.updateUsers(data.items)
-        this.props.setTotalUsersCount(data.totalCount)
-        this.props.toggleIsFetching(false)
-      })
+    this.props.getUsersThunk(this.props.currentPage, this.props.pageSize);
+    
   }
   onPageChanged = (p: number) => {
     this.props.toggleIsFetching(true)
@@ -77,7 +77,6 @@ export class UsersContainerClass extends React.Component<UserPropsType> {
     return <>
       {this.props.isFetching ? <Preloader /> : ""}
       <Users {...this.props}
-        onPageChanged={this.onPageChanged}
       />
     </>
   }
@@ -105,6 +104,8 @@ let mapStateToProps = (state: AppStateType) => {
 
 
 export const UsersContainer = connect(mapStateToProps, {
-  onFollow, onUnFollow, updateUsers, changeCurrentPage, setTotalUsersCount, toggleIsFetching, isFollowingAC
+  onFollow, onUnFollow, updateUsers,
+  changeCurrentPage, setTotalUsersCount,
+  toggleIsFetching, isFollowingAC, getUsersThunk, onPageChanged
 })(UsersContainerClass);
 

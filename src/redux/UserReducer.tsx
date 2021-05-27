@@ -1,4 +1,6 @@
 import React from 'react';
+import { Dispatch } from 'redux';
+import { usersAPI } from '../Api/api';
 
 type ActionType =
     followActionType
@@ -152,3 +154,30 @@ export const userPageReducer = (state: UsersPageType = initialState, action: Act
 }
 
 
+export const getUsersThunk = (currentPage: number, pageSize: number) => {
+
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFetching(true));
+        usersAPI.getUsers(currentPage, pageSize).
+            then(data => {
+                dispatch(updateUsers(data.items))
+                dispatch(setTotalUsersCount(data.totalCount))
+                dispatch(toggleIsFetching(false))
+            })
+
+    }
+}
+
+export const onPageChanged = (p: number, pageSize: number) => {
+
+    return (dispatch: Dispatch) => {
+        dispatch(toggleIsFetching(true))
+        dispatch(changeCurrentPage(p))
+        usersAPI.getUsers(p, pageSize)
+            .then(data => {
+                dispatch(updateUsers(data.items))
+                dispatch(toggleIsFetching(false))
+            })
+
+    }
+}
