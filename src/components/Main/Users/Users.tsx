@@ -5,7 +5,6 @@ import { UsersType } from "../../../redux/UserReducer";
 import s from "./Users.module.css"
 
 
-console.log(process.env)
 
 type UserPropsType = {
     users: UsersType[]
@@ -42,7 +41,7 @@ export const Users = (props: UserPropsType) => {
                 props.users.map(users =>
                     <div key={users.id}>
                         <div>
-                            <NavLink to={'/Profile/ ' + users.id}>
+                            <NavLink to={'/Profile/' + users.id}>
                                 {/* @ts-ignore */}
                                 <img src={users.photos.small != null ? users.photos.small : userPhoto}
                                     className={s.userPhoto} />

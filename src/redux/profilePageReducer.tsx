@@ -1,4 +1,6 @@
 import React from 'react';
+import { Dispatch } from 'redux';
+import { profileAPI } from '../Api/api';
 import { PostsType } from './store';
 
 // for profile
@@ -8,17 +10,17 @@ export type UpdatePostActionType = ReturnType<typeof UpdatePostAC>
 export type setUserProfileActionType = ReturnType<typeof setUserProfileAC>
 
 
-export type profileType = {
+export type ProfileType = {
     aboutMe: string,
     contacts: {
-        facebook: string,
-        website: null,
-        vk: string,
-        twitter: string,
-        instagram: string,
-        youtube: null,
-        github: string,
-        mainLink: null
+        facebook: string | null
+        website: string | null
+        vk: string | null
+        twitter: string | null
+        instagram: string | null
+        youtube: string | null
+        github: string | null
+        mainLink: string | null
     },
     lookingForAJob: boolean,
     lookingForAJobDescription: string,
@@ -30,7 +32,7 @@ export type profileType = {
     }
 }
 export type ProfilePageType = {
-    profile: profileType | null
+    profile: ProfileType | null
     posts: PostsType[]
     newPostText: string
 }
@@ -51,7 +53,7 @@ export const UpdatePostAC = (newText: string) => {
         newText: newText,
     } as const
 }
-export const setUserProfileAC = (profile: profileType | null) => {
+export const setUserProfileAC = (profile: ProfileType | null) => {
     return {
         type: SET_USER_PROFILE,
         profile
@@ -101,5 +103,15 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
             }
         default:
             return state
+    }
+}
+
+export const getProfile = (userId: number | string) => {
+    debugger
+    return (dispatch: Dispatch) => {
+        profileAPI.getProfile(userId)
+            .then(response => {
+                dispatch(setUserProfileAC(response))
+            })
     }
 }

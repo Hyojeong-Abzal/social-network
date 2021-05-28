@@ -28,3 +28,10 @@ export const usersAPI = {
     }
 
 }
+
+export const profileAPI = {
+    getProfile(userId: number | string) {
+        return instance.get(`profile/${userId}`)
+            .then( response => response.data)
+    }
+}

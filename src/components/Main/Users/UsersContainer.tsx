@@ -19,25 +19,17 @@ import { Users } from './Users';
 
 
 
-
-type MapDispatchPropsType = {
-  onFollow: (id: number) => void
-  onUnFollow: (id: number) => void
-  updateUsers: (users: Array<UsersType>) => void
-  changeCurrentPage: (page: number) => void
-  setTotalUsersCount: (totalCount: number) => void
-  toggleIsFetching: (isFetching: boolean) => void
-  getUsersThunk: (currentPage: number, pageSize: number) => void
-
-};
-
-type UserPropsType = {
+type mapStateToPropsType = {
   users: UsersType[]
   pageSize: number
   totalUsersCount: number
   currentPage: number
   isFetching: boolean
   isFollowing: number[]
+}
+
+
+type MapDispatchPropsType = {
   follow: (userId: number) => void
   unFollow: (userId: number) => void
   updateUsers: (users: Array<UsersType>) => void
@@ -47,9 +39,9 @@ type UserPropsType = {
   isFollowingAC: (isFetching: boolean, userId: number) => void
   getUsersThunk: (currentPage: number, pageSize: number) => void
   onPageChanged: (p: number, pageSize: number) => void
+};
 
-
-}
+type UserPropsType = mapStateToPropsType & MapDispatchPropsType;
 
 
 export class UsersContainerClass extends React.Component<UserPropsType> {
@@ -78,7 +70,6 @@ export class UsersContainerClass extends React.Component<UserPropsType> {
 
 
 
-
 let mapStateToProps = (state: AppStateType) => {
   return {
     users: state.userPage.users,
@@ -90,7 +81,6 @@ let mapStateToProps = (state: AppStateType) => {
 
   }
 }
-
 
 export const UsersContainer = connect(mapStateToProps, {
   follow, unFollow, updateUsers,

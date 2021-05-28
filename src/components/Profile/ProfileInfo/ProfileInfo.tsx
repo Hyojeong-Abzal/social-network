@@ -7,11 +7,11 @@ type ProfileInfoPropsType = {
 
 export function ProfileInfo(props: any) {
     if (!props.profile) {
-return <Preloader />
+        return <Preloader />
     }
     return (
         <div className={s.wrapper}>
-            <img src={props.profile.photos.large}  />
+            <img src={props.profile.photos.large} />
         </div>
     )
 
