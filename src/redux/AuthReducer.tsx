@@ -1,4 +1,7 @@
 import React from 'react';
+import { usersAPI } from '../Api/api';
+import { Dispatch } from 'redux';
+
 
 type ActionType =
     setLoginActionType
@@ -58,3 +61,13 @@ export const authReducer = (state: AythReducerType = initialState, action: Actio
 }
 
 
+
+export const authMe = () => (dispatch: Dispatch) => {
+    usersAPI.getLogin()
+    .then(data => {
+        if (data.resultCode === 0) {
+            let { id, email, login } = data.data;
+            dispatch(setLogin(id, email, login))
+        }
+    })
+}
