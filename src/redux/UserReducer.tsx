@@ -181,3 +181,34 @@ export const onPageChanged = (p: number, pageSize: number) => {
 
     }
 }
+
+export const unFollow = (userId: number) => {
+
+    return (dispatch: Dispatch) => {
+        dispatch(isFollowingAC(true, userId))
+        usersAPI.unFollow(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    dispatch(onUnFollow(userId))
+                    dispatch(isFollowingAC(false, userId));
+                }
+            })
+    }
+}
+
+export const follow = (userId: number) => {
+
+    return (dispatch: Dispatch) => {
+        dispatch(isFollowingAC(true, userId));
+        usersAPI.follow(userId)
+            .then(response => {
+
+                if (response.data.resultCode === 0) {
+
+                    dispatch(onFollow(userId))
+                    dispatch(isFollowingAC(false, userId));
+
+                }
+            })
+    }
+}

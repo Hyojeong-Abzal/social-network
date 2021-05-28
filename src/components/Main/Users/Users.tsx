@@ -1,26 +1,26 @@
-import axios from "axios";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { usersAPI } from "../../../Api/api";
 import userPhoto from "../../../assets/images/user.png"
 import { UsersType } from "../../../redux/UserReducer";
 import s from "./Users.module.css"
 
 
-type PropsType = {
+console.log(process.env)
+
+type UserPropsType = {
     users: UsersType[]
     pageSize: number
     totalUsersCount: number
     currentPage: number
     isFollowing: number[]
-    onFollow: (id: number) => void
-    onUnFollow: (id: number) => void
+    follow: (userId: number) => void
+    unFollow: (userId: number) => void
     onPageChanged: (p: number, pageSize: number) => void
     isFollowingAC: (isFetching: boolean, userId: number) => void
 
 }
 
-export const Users = (props: PropsType) => {
+export const Users = (props: UserPropsType) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
@@ -48,42 +48,18 @@ export const Users = (props: PropsType) => {
                                     className={s.userPhoto} />
                                 {users.name}
                             </NavLink>
-
                         </div>
                         <div>
                             {users.status}
                         </div>
                         <div>
                             {users.followed
-                                ? <button disabled={props.isFollowing.some(id => id === users.id)} onClick={() => {
-                                    props.isFollowingAC(true, users.id);
-                                    usersAPI.unFollow(users.id)
-                                        .then(data => {
-                                            if (data.resultCode === 0) {
-                                                props.onUnFollow(users.id)
-                                                props.isFollowingAC(false, users.id);
-
-                                            }
-                                        })
-                                }}>
+                                ? <button disabled={props.isFollowing.some(id => id === users.id)}
+                                    onClick={() => { props.unFollow(users.id) }}>
                                     Unfollow
                                     </button>
                                 : <button disabled={props.isFollowing.some(id => id === users.id)} onClick={() => {
-                                    props.isFollowingAC(true, users.id);
-                                    axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${users.id}`, {}, {
-                                        withCredentials: true,
-                                        headers: {
-                                            "API-KEY": "5c3d7df5-b9a4-40af-905c-224c75d0849c"
-                                        }
-                                    }).then(response => {
-
-                                        if (response.data.resultCode === 0) {
-
-                                            props.onFollow(users.id)
-                                            props.isFollowingAC(false, users.id);
-
-                                        }
-                                    })
+                                    props.follow(users.id)
                                 }}>
                                     Follow
                                     </button>}
