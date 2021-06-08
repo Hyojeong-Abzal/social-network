@@ -8,13 +8,14 @@ import { Redirect } from 'react-router';
 
 type ProfilePropsType = {
     profile: ProfileType | null
+    status: string
+    updateStatusTC: (status: string) => void
 }
 
 function Profile(props: ProfilePropsType) {
-    
     return (
         <div className={s.wrapper}>
-            <ProfileInfo profile={props.profile} />
+            <ProfileInfo profile={props.profile} status={props.status} updateStatusTC={props.updateStatusTC} />
             <MyPostsContainer />
 
         </div>
