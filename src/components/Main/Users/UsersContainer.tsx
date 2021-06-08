@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { withAuthRedirect } from '../../../HOC/withAuthRedirect';
 import { AppStateType } from '../../../redux/redux-store';
 import {
   changeCurrentPage,
@@ -64,12 +66,6 @@ export class UsersContainerClass extends React.Component<UserPropsType> {
 }
 
 
-
-
-
-
-
-
 let mapStateToProps = (state: AppStateType) => {
   return {
     users: state.userPage.users,
@@ -82,9 +78,17 @@ let mapStateToProps = (state: AppStateType) => {
   }
 }
 
-export const UsersContainer = connect(mapStateToProps, {
-  follow, unFollow, updateUsers,
-  changeCurrentPage, setTotalUsersCount,
-  toggleIsFetching, isFollowingAC, getUsersThunk, onPageChanged
-})(UsersContainerClass);
+// export const UsersContainer = connect(mapStateToProps, {
+//   follow, unFollow, updateUsers,
+//   changeCurrentPage, setTotalUsersCount,
+//   toggleIsFetching, isFollowingAC, getUsersThunk, onPageChanged
+// })(UsersContainerClass);
 
+export default compose<React.ComponentType>(
+  connect(mapStateToProps, {
+    follow, unFollow, updateUsers,
+    changeCurrentPage, setTotalUsersCount,
+    toggleIsFetching, isFollowingAC, getUsersThunk, onPageChanged
+  }),
+  withAuthRedirect
+)(UsersContainerClass)

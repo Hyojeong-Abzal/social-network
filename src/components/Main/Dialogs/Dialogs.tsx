@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react";
 import s from "./Dialogs.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { DialogsPageType } from "../../../redux/store";
 import { Messages } from "./Messages/Messages";
 
@@ -26,6 +26,7 @@ const Dialogs = (props: PropsType) => {
     props.onChangeHandler(newValue)
   };
 
+
   return (
     <div className={s.dialogs}>
       <div className={s.dialogsItems}>{dialogElement}</div>
@@ -38,10 +39,12 @@ const Dialogs = (props: PropsType) => {
           <button onClick={sendMessage}> sent message</button>
         </div>
       </div>
-
     </div>
   );
 };
+
+
+
 type DialogType = {
   id: number;
   name: string;

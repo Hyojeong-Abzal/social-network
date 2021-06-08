@@ -3,10 +3,11 @@ import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
 import Settings from "./components/Main/SettingsNetwork/Settings";
 import { Route } from "react-router-dom";
-import { DialogsContainer } from "./components/Main/Dialogs/DialogsContainer";
-import { UsersContainer } from "./components/Main/Users/UsersContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import { Login } from "./components/Header/Login";
+import DialogsContainer from "./components/Main/Dialogs/DialogsContainer";
+import UsersContainer from "./components/Main/Users/UsersContainer";
 
 type PropsType = {
 };
@@ -36,6 +37,9 @@ function App(props: PropsType) {
           )}
         />
         <Route path="/Settings" component={Settings} />
+        <Route path="/Login" component={Login} />
+
+
       </div>
     </div>
   );
