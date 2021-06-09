@@ -1,12 +1,8 @@
 import {
-  dialogsPageReducer,
   SendMessageActionType,
-  UpdateMessageActionType,
 } from './dialogsPageReducer'
 import {
   AddPostActionType,
-  profilePageReducer,
-  UpdatePostActionType,
 } from './profilePageReducer'
 
 let renderTree = (_state: RootStateType) => {
@@ -33,7 +29,6 @@ export type ProfilePageType = {
 export type DialogsPageType = {
   dialogs: DialogsType[]
   messages: MessagesType[]
-  newMessageText: string
 }
 
 export type RootStateType = {
@@ -50,9 +45,7 @@ export type storeType = {
 
 export type ActionsTypes =
   | AddPostActionType
-  | UpdatePostActionType
   | SendMessageActionType
-  | UpdateMessageActionType
 
 // export const store: storeType = {
 //   _state: {

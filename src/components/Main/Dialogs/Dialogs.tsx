@@ -3,11 +3,11 @@ import s from "./Dialogs.module.css";
 import { NavLink, Redirect } from "react-router-dom";
 import { DialogsPageType } from "../../../redux/store";
 import { Messages } from "./Messages/Messages";
+import { Field, InjectedFormProps, reduxForm } from "redux-form";
 
 type PropsType = {
   state: DialogsPageType
-  sendMessage: () => void
-  onChangeHandler: (newValue: string) => void
+  sendMessage: (newMessage: string) => void
 };
 
 const Dialogs = (props: PropsType) => {
@@ -20,12 +20,11 @@ const Dialogs = (props: PropsType) => {
     <Messages key={m.id} message={m.message} />
   )
 
-  const sendMessage = () => { props.sendMessage() }
-  const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    let newValue = e.currentTarget.value
-    props.onChangeHandler(newValue)
-  };
 
+
+  const onSubmitHandler = (values: FormDataType) => {
+    props.sendMessage(values.newMessageText)
+  }
 
   return (
     <div className={s.dialogs}>
@@ -34,10 +33,7 @@ const Dialogs = (props: PropsType) => {
         <div className={s.messages}>
           {messagesElement}
         </div>
-        <div className={s.textarea}>
-          <textarea onChange={onChangeHandler} value={props.state.newMessageText} />
-          <button onClick={sendMessage}> sent message</button>
-        </div>
+        <DialogAddMessageForm onSubmit={onSubmitHandler} />
       </div>
     </div>
   );
@@ -57,4 +53,26 @@ const Dialog = (props: DialogType) => {
   );
 };
 
+
+type FormDataType = {
+  newMessageText: string
+
+}
+export const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+  return (
+    <form onSubmit={props.handleSubmit}>
+      <div className={s.textarea}>
+        <Field component="textarea" name="newMessageText" placeholder="Enter your message" />
+        <button> sent message</button>
+      </div>
+    </form>
+
+  )
+}
+
+
+const DialogAddMessageForm = reduxForm<FormDataType>({
+  // a unique name for the form
+  form: 'dialogAddMessageForm'
+})(AddMessageForm)
 export default Dialogs;

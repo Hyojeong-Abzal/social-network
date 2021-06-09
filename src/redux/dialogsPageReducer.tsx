@@ -3,24 +3,18 @@ import { ActionsTypes, DialogsPageType, } from './store';
 
 // for messege
 
-export type UpdateMessageActionType = ReturnType<typeof updateMessageAC>
 export type SendMessageActionType = ReturnType<typeof sendMessageAC>
 
-export const sendMessageAC = () => {
+export const sendMessageAC = (newMessage: string) => {
     return {
         type: 'SEND-MESSEGE',
+        newMessage
     } as const
 }
 
-export const updateMessageAC = (newMessage: string) => {
-    return {
-        type: 'UPDATE-MESSEGE-TEXT',
-        newMessage: newMessage,
-    } as const
-}
+
 
 const SEND_MESSEGE = "SEND-MESSEGE"
-const UPDATE_MESSEGE_TEXT = "UPDATE-MESSEGE-TEXT"
 
 const initialState = {
 
@@ -37,7 +31,6 @@ const initialState = {
         { id: 3, message: '1213' },
         { id: 4, message: 'Hello' },
     ],
-    newMessageText: ""
 }
 
 export const dialogsPageReducer =
@@ -47,18 +40,13 @@ export const dialogsPageReducer =
             case SEND_MESSEGE:
                 return {
                     ...state,
-                    newMessageText: "",
                     messages: [...state.messages, {
                         id: new Date().getTime(),
-                        message: state.newMessageText,
+                        message: action.newMessage,
                     }]
                 }
 
-            case UPDATE_MESSEGE_TEXT:
-                return {
-                    ...state,
-                    newMessageText: action.newMessage
-                }
+          
             default:
                 return state
 

@@ -6,7 +6,6 @@ import { PostsType } from './store';
 // for profile
 
 export type AddPostActionType = ReturnType<typeof AddPostAC>
-export type UpdatePostActionType = ReturnType<typeof UpdatePostAC>
 export type setUserProfileActionType = ReturnType<typeof setUserProfileAC>
 
 
@@ -39,23 +38,18 @@ export type ProfilePageType = {
 }
 type ActionsTypes =
     | AddPostActionType
-    | UpdatePostActionType
     | setUserProfileActionType
     | ReturnType<typeof setStatusAC>
 
 
 
-export const AddPostAC = () => {
+export const AddPostAC = (newPostText: string) => {
     return {
         type: ADD_POST,
+        newPostText
     } as const
 }
-export const UpdatePostAC = (newText: string) => {
-    return {
-        type: UPDATE_POST_TEXT,
-        newText: newText,
-    } as const
-}
+
 export const setUserProfileAC = (profile: ProfileType | null) => {
     return {
         type: SET_USER_PROFILE,
@@ -72,7 +66,6 @@ export const setStatusAC = (status: string) => {
 
 
 const ADD_POST = "ADD-POST"
-const UPDATE_POST_TEXT = "UPDATE-POST-TEXT"
 const SET_USER_PROFILE = "SET_USER_PROFILE"
 const SET_STATUS = "SET_STATUS"
 
@@ -102,16 +95,11 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
                 ...state,
                 posts: [{
                     id: new Date().getTime(),
-                    message: state.newPostText,
+                    message: action.newPostText,
                     like: 0
                 }, ...state.posts],
-                newPostText: ""
             };
-        case UPDATE_POST_TEXT:
-            return {
-                ...state,
-                newPostText: action.newText
-            }
+     
         case 'SET_USER_PROFILE':
             return {
                 ...state,
