@@ -4,6 +4,8 @@ import { NavLink, Redirect } from "react-router-dom";
 import { DialogsPageType } from "../../../redux/store";
 import { Messages } from "./Messages/Messages";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
+import { Textarea } from "../../common/FormControls/FormControls";
+import { maxLengthCreator, required } from "../../../utils/validators";
 
 type PropsType = {
   state: DialogsPageType
@@ -58,11 +60,16 @@ type FormDataType = {
   newMessageText: string
 
 }
+const maxLength50 = maxLengthCreator(50);
 export const AddMessageForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
   return (
     <form onSubmit={props.handleSubmit}>
       <div className={s.textarea}>
-        <Field component="textarea" name="newMessageText" placeholder="Enter your message" />
+        <Field
+          component={Textarea}
+          name="newMessageText"
+          placeholder="Enter your message"
+          validate={[required, maxLength50]} />
         <button> sent message</button>
       </div>
     </form>
