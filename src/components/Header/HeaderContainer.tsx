@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React from 'react';
 import { connect } from 'react-redux';
-import { authMe } from '../../redux/AuthReducer';
+import { authMe } from '../../redux/authMeReducer';
 import { AppStateType } from '../../redux/redux-store';
-import {logout} from '../../redux/AuthReducer';
+import {logout} from '../../redux/authMeReducer';
 import Header from './Header';
 
 

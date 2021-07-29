@@ -70,7 +70,7 @@ export const authReducer = (state: AythReducerType = initialState, action: Actio
 
 
 export const authMe = () => (dispatch: Dispatch) => {
-    usersAPI.authUser()
+     usersAPI.authUser()
         .then(res => {
             if (res.resultCode === 0) {
                 let { id, email, login } = res.data;
