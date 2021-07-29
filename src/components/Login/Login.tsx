@@ -1,16 +1,26 @@
 import React from 'react'
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form'
+import { login } from '../../redux/AuthReducer';
+import { AppStateType } from '../../redux/redux-store';
 import { required } from '../../utils/validators';
 import { Input } from '../common/FormControls/FormControls';
 
-export const Login: React.FC = () => {
+type LoginPropsType = {
+    isAuth: boolean
+    login: (email: string, password: string, rememberMe: boolean) => void
+}
+const Login: React.FC<LoginPropsType> = (props) => {
 
     const onSubmit = (formData: FormDataType) => {
-        console.log(formData);
+        props.login(formData.email, formData.password, formData.rememberMe)
 
     }
+    const isAuth = props.isAuth && <Redirect to="/Profile" />
     return (
         <div>
+            {isAuth}
             <h1>Login</h1>
             <LoginReduxForm onSubmit={onSubmit} />
 
@@ -18,7 +28,7 @@ export const Login: React.FC = () => {
     )
 }
 type FormDataType = {
-    login: string
+    email: string
     password: string
     rememberMe: boolean
 }
@@ -28,7 +38,7 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <Field
                     placeholder={"Login"}
-                    name={"login"}
+                    name={"email"}
                     component={Input}
                     validate={[required]}
                 />
@@ -37,6 +47,7 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 <Field
                     placeholder={"password"}
                     name={"password"}
+                    type={"password"}
                     component={Input}
                     validate={[required]}
                 />
@@ -58,3 +69,10 @@ const LoginReduxForm = reduxForm<FormDataType>({
     // a unique name for the form
     form: 'login'
 })(LoginForm)
+
+
+
+const mstp = (state: AppStateType) => ({
+    isAuth: state.auth.isAuth
+})
+export default connect(mstp, { login })(Login)

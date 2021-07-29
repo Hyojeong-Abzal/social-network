@@ -5,9 +5,9 @@ import Settings from "./components/Main/SettingsNetwork/Settings";
 import { Route } from "react-router-dom";
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-import { Login } from "./components/Login/Login";
 import DialogsContainer from "./components/Main/Dialogs/DialogsContainer";
 import UsersContainer from "./components/Main/Users/UsersContainer";
+import Login from "./components/Login/Login";
 
 type PropsType = {
 };

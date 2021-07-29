@@ -14,10 +14,16 @@ export type setLoginActionType = ReturnType<typeof setLogin>
 
 
 
-export const setLogin = (id: number, email: string, login: string) => {
+export const setLogin = (
+    id: number | null,
+    email: string | null,
+    login: string | null,
+    isAuth: boolean
+) => {
     return {
         type: SET_LOGIN,
-        data: { id, email, login }
+        data: { id, email, login },
+        isAuth: isAuth
     } as const
 }
 
@@ -52,7 +58,7 @@ export const authReducer = (state: AythReducerType = initialState, action: Actio
             return {
                 ...state,
                 data: action.data,
-                isAuth: true
+                isAuth: action.isAuth
             }
 
         default:
@@ -63,11 +69,37 @@ export const authReducer = (state: AythReducerType = initialState, action: Actio
 
 
 export const authMe = () => (dispatch: Dispatch) => {
-    usersAPI.getLogin()
-    .then(data => {
-        if (data.resultCode === 0) {
-            let { id, email, login } = data.data;
-            dispatch(setLogin(id, email, login))
-        }
-    })
+    usersAPI.authUser()
+        .then(res => {
+            if (res.resultCode === 0) {
+                let { id, email, login } = res.data;
+                dispatch(setLogin(id, email, login, true))
+            }
+        })
+}
+
+
+export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
+    usersAPI.login(email, password, rememberMe)
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                usersAPI.authUser()
+                    .then(res => {
+                        if (res.resultCode === 0) {
+                            let { id, email, login } = res.data;
+                            dispatch(setLogin(id, email, login, true))
+                        }
+                    })
+            }
+        })
+}
+
+
+export const logout = () => (dispatch: Dispatch) => {
+    usersAPI.logout()
+        .then(res => {
+            if (res.data.resultCode === 0) {
+                dispatch(setLogin(null, null, null, false))
+            }
+        })
 }

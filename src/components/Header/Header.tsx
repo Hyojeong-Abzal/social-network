@@ -4,6 +4,7 @@ import s from './Header.module.css';
 
 type HeaderPropsType = {
     login: string | null
+    logout: () => void
     isAuth: boolean
 }
 
@@ -16,7 +17,11 @@ const Header = (props: HeaderPropsType) => {
             </div>
             <div className={s.loginBlok}>
                 {
-                    props.isAuth ? props.login : <NavLink to={'/login'}>Login</NavLink>
+                    props.isAuth ?
+                     <div>
+                        {props.login} - <button onClick={props.logout}>Log out</button>
+                     </div> 
+                     : <NavLink to={'/login'}>Login</NavLink>
                 }
 
             </div>
