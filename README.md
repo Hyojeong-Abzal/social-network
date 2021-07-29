@@ -1,6 +1,6 @@
 ### Sical Network App
 
-![Created using this stack of tech: ](https://drive.google.com/file/d/1d8g06wYmRzBKfyEwUgYuAnGbeRxPcZsk/view?usp=sharing)
+<img src='https://drive.google.com/file/d/1d8g06wYmRzBKfyEwUgYuAnGbeRxPcZsk/view?usp=sharing'>
 
 #### Created using this stack of tech:
 
