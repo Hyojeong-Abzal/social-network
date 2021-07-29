@@ -1,6 +1,7 @@
 import React from 'react';
 import { usersAPI } from '../Api/api';
 import { Dispatch } from 'redux';
+import { stopSubmit } from 'redux-form';
 
 
 type ActionType =
@@ -90,6 +91,11 @@ export const login = (email: string, password: string, rememberMe: boolean) => (
                             dispatch(setLogin(id, email, login, true))
                         }
                     })
+            } else {
+                res.data.messages[0]
+                    ? dispatch(stopSubmit('login', { _error: res.data.messages[0] }))
+                    : dispatch(stopSubmit('login', { _error: 'Some Error' }))
+
             }
         })
 }
