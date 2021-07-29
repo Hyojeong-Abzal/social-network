@@ -1,6 +1,6 @@
 ### Social Network App
 
-<img src='./src/assets/images/readMeBanner.png'>
+<img src='./src/assets/images/Readme-banner.png'>
 
 #### Created using this stack of tech:
 
