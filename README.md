@@ -1,6 +1,6 @@
-### Sical Network App
+### Social Network App
 
-<img src='https://drive.google.com/file/d/1d8g06wYmRzBKfyEwUgYuAnGbeRxPcZsk/view?usp=sharing'>
+<img src='./src/assets/images/readmeBanner.png'>
 
 #### Created using this stack of tech:
 
