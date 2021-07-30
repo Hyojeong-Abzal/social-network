@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from "react";
-import preloader from "../../../assets/preloader/Fidget-spinner.gif"
+import preloader from "../../../assets/preloader/Spinner.gif"
 
 export const Preloader = () => {
     return (

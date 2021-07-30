@@ -12,7 +12,9 @@ import { compose } from "redux";
 import { connect } from "react-redux";
 import { initializeApp } from "./redux/appReducer";
 import { AppStateType } from "./redux/redux-store";
-import { Preloader } from "./components/common/preloader/Preloader";
+import { InitialScreen } from "./InitialScreen/InitialScreen";
+
+
 type PropsType = {
   initialized: boolean
   initializeApp: () => void
@@ -24,7 +26,9 @@ class App extends React.Component<PropsType>  {
   }
   render() {
     if (!this.props.initialized) {
-      return <Preloader />
+      return <div>
+        <InitialScreen />
+      </div>
     }
     return (
       <div className="app-wrapper">
