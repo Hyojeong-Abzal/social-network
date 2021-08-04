@@ -1,8 +1,10 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { usersAPI } from '../Api/api';
+import { updateObjectInArray } from '../utils/object-helper';
+import { AppThunkType } from './redux-store';
 
-type ActionType =
+export type UserPeducerActionType =
     followActionType
     | unFollowActionType
     | updateUsersActionType
@@ -110,29 +112,39 @@ const initialState = {
 
 }
 
-export const userPageReducer = (state: UsersPageType = initialState, action: ActionType): UsersPageType => {
+export const userPageReducer = (state: UsersPageType = initialState, action: UserPeducerActionType): UsersPageType => {
     switch (action.type) {
         case 'FOLLOW':
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.id) {
-                        return { ...u, followed: true }
-                    }
-                    return u
-
-                })
+                users: updateObjectInArray(state.users, action.id, "id", { followed: true })
             }
+        // case 'FOLLOW':
+        //     return {
+        //         ...state,
+        //         users: state.users.map(u => {
+        //             if (u.id === action.id) {
+        //                 return { ...u, followed: true }
+        //             }
+        //             return u
+
+        //         })
+        //     }
         case 'UNFOLLOW':
             return {
                 ...state,
-                users: state.users.map(u => {
-                    if (u.id === action.id) {
-                        return { ...u, followed: false }
-                    }
-                    return u
-                })
+                users: updateObjectInArray(state.users, action.id, "id", { followed: false })
             }
+        // case 'UNFOLLOW':
+        // return {
+        //     ...state,
+        //     users: state.users.map(u => {
+        //         if (u.id === action.id) {
+        //             return { ...u, followed: false }
+        //         }
+        //         return u
+        //     })
+        // }
         case 'UPDATE_USERS':
             return { ...state, users: action.users }
         case "SET_CURRENT_PAGE":
@@ -154,62 +166,59 @@ export const userPageReducer = (state: UsersPageType = initialState, action: Act
 }
 
 
-export const getUsersThunk = (currentPage: number, pageSize: number) => {
-
-    return (dispatch: Dispatch) => {
-        dispatch(toggleIsFetching(true));
-        usersAPI.getUsers(currentPage, pageSize).
-            then(data => {
-                dispatch(updateUsers(data.items))
-                dispatch(setTotalUsersCount(data.totalCount))
-                dispatch(toggleIsFetching(false))
-            })
+export const getUsersThunk = (currentPage: number, pageSize: number): AppThunkType => async dispatch => {
+    dispatch(toggleIsFetching(true))
+    try {
+        const res = await usersAPI.getUsers(currentPage, pageSize)
+        dispatch(updateUsers(res.items))
+        dispatch(setTotalUsersCount(res.totalCount))
+        dispatch(toggleIsFetching(false))
+    } catch (e) {
 
     }
+
+
 }
 
-export const onPageChanged = (p: number, pageSize: number) => {
-
-    return (dispatch: Dispatch) => {
-        dispatch(toggleIsFetching(true))
-        dispatch(changeCurrentPage(p))
-        usersAPI.getUsers(p, pageSize)
-            .then(data => {
-                dispatch(updateUsers(data.items))
-                dispatch(toggleIsFetching(false))
-            })
+export const onPageChanged = (p: number, pageSize: number): AppThunkType => async dispatch => {
+    dispatch(toggleIsFetching(true))
+    dispatch(changeCurrentPage(p))
+    try {
+        const res = await usersAPI.getUsers(p, pageSize)
+        dispatch(updateUsers(res.items))
+        dispatch(toggleIsFetching(false))
+    } catch (e) {
 
     }
+
+
+}
+// dry refactor this
+export const unFollow = (userId: number): AppThunkType => async dispatch => {
+    dispatch(isFollowingAC(true, userId))
+    try {
+        const res = await usersAPI.unFollow(userId)
+        if (res.resultCode === 0) {
+            dispatch(onUnFollow(userId))
+            dispatch(isFollowingAC(false, userId));
+        }
+    } catch (e) {
+
+    }
+
 }
 
-export const unFollow = (userId: number) => {
+export const follow = (userId: number): AppThunkType => async dispatch => {
+    dispatch(isFollowingAC(true, userId));
+    try {
+        const res = await usersAPI.follow(userId)
+        if (res.data.resultCode === 0) {
+            dispatch(onFollow(userId))
+            dispatch(isFollowingAC(false, userId));
+        }
+    } catch (e) {
 
-    return (dispatch: Dispatch) => {
-        dispatch(isFollowingAC(true, userId))
-        usersAPI.unFollow(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(onUnFollow(userId))
-                    dispatch(isFollowingAC(false, userId));
-                }
-            })
     }
-}
 
-export const follow = (userId: number) => {
-
-    return (dispatch: Dispatch) => {
-        dispatch(isFollowingAC(true, userId));
-        usersAPI.follow(userId)
-            .then(response => {
-
-                if (response.data.resultCode === 0) {
-
-                    dispatch(onFollow(userId))
-                    dispatch(isFollowingAC(false, userId));
-
-                }
-            })
-    }
 }
 

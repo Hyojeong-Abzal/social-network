@@ -15,7 +15,7 @@ import {
   onPageChanged,
   unFollow,
   follow
-} from '../../../redux/UserReducer';
+} from '../../../redux/userReducer';
 import { Preloader } from '../../common/preloader/Preloader';
 import { Users } from './Users';
 
@@ -78,11 +78,6 @@ let mapStateToProps = (state: AppStateType) => {
   }
 }
 
-// export const UsersContainer = connect(mapStateToProps, {
-//   follow, unFollow, updateUsers,
-//   changeCurrentPage, setTotalUsersCount,
-//   toggleIsFetching, isFollowingAC, getUsersThunk, onPageChanged
-// })(UsersContainerClass);
 
 export default compose<React.ComponentType>(
   connect(mapStateToProps, {

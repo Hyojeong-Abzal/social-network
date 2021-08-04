@@ -3,10 +3,11 @@ import { usersAPI } from '../Api/api';
 import { Dispatch } from 'redux';
 import { stopSubmit } from 'redux-form';
 import { authMe, setLogin } from './authMeReducer';
+import { AppThunkType } from './redux-store';
 
 
-type ActionType =
-setInitializedActionType
+export type AppActionType =
+    setInitializedActionType
 
 
 export type setInitializedActionType = ReturnType<typeof setInitialized>
@@ -36,7 +37,7 @@ const initialState: AppReducerType = {
     initialized: false
 }
 
-export const appReducer = (state: AppReducerType = initialState, action: ActionType): AppReducerType => {
+export const appReducer = (state: AppReducerType = initialState, action: AppActionType): AppReducerType => {
     switch (action.type) {
         case SET_INITIALIZED:
             return {
@@ -51,16 +52,13 @@ export const appReducer = (state: AppReducerType = initialState, action: ActionT
 
 
 
-export const initializeApp = () => (dispatch: Dispatch) => {
-    usersAPI.authUser()
-    .then(res => {
-        if (res.resultCode === 0) {
-            let { id, email, login } = res.data;
-            dispatch(setLogin(id, email, login, true))
-            dispatch(setInitialized(true))
-        }
-    })
-    
+export const initializeApp = (): AppThunkType => async dispatch => {
+    const res = await usersAPI.authUser()
+    if (res.resultCode === 0) {
+        let { id, email, login } = res.data;
+        dispatch(setLogin(id, email, login, true))
+        dispatch(setInitialized(true))
+    }
 }
 
 

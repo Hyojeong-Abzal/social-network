@@ -1,4 +1,5 @@
 import {
+  DialogsActionsTypes,
   SendMessageActionType,
 } from './dialogsPageReducer'
 import {
@@ -40,12 +41,9 @@ export type storeType = {
   _state: RootStateType
   subscribe: (observer: (_state: RootStateType) => void) => void
   getState: () => RootStateType
-  dispatch: (action: ActionsTypes) => void
+  dispatch: (action: DialogsActionsTypes) => void
 }
 
-export type ActionsTypes =
-  | AddPostActionType
-  | SendMessageActionType
 
 // export const store: storeType = {
 //   _state: {

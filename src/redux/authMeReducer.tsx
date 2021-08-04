@@ -2,9 +2,10 @@ import React from 'react';
 import { usersAPI } from '../Api/api';
 import { Dispatch } from 'redux';
 import { stopSubmit } from 'redux-form';
+import { AppThunkType } from './redux-store';
 
 
-type ActionType =
+export type AuthMeActionTypes =
     setLoginActionType
 
 
@@ -53,7 +54,7 @@ const initialState: AythReducerType = {
     isAuth: false
 }
 
-export const authReducer = (state: AythReducerType = initialState, action: ActionType): AythReducerType => {
+export const authReducer = (state: AythReducerType = initialState, action: AuthMeActionTypes): AythReducerType => {
     switch (action.type) {
         case 'SET_LOGIN':
             return {
@@ -69,43 +70,48 @@ export const authReducer = (state: AythReducerType = initialState, action: Actio
 
 
 
-export const authMe = () => (dispatch: Dispatch) => {
-     usersAPI.authUser()
-        .then(res => {
-            if (res.resultCode === 0) {
-                let { id, email, login } = res.data;
-                dispatch(setLogin(id, email, login, true))
-            }
-        })
+export const authMe = (): AppThunkType => async dispatch => {
+
+    try {
+        const res = await usersAPI.authUser()
+        if (res.resultCode === 0) {
+            let { id, email, login } = res.data;
+            dispatch(setLogin(id, email, login, true))
+        }
+    } catch (e) {
+
+    }
+
 }
 
 
-export const login = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
-    usersAPI.login(email, password, rememberMe)
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                usersAPI.authUser()
-                    .then(res => {
-                        if (res.resultCode === 0) {
-                            let { id, email, login } = res.data;
-                            dispatch(setLogin(id, email, login, true))
-                        }
-                    })
-            } else {
-                res.data.messages[0]
-                    ? dispatch(stopSubmit('login', { _error: res.data.messages[0] }))
-                    : dispatch(stopSubmit('login', { _error: 'Some Error' }))
+export const login = (email: string, password: string, rememberMe: boolean): AppThunkType => async dispatch => {
+    const res = await usersAPI.login(email, password, rememberMe)
 
-            }
-        })
+    if (res.data.resultCode === 0) {
+        usersAPI.authUser()
+            .then(res => {
+                if (res.resultCode === 0) {
+                    let { id, email, login } = res.data;
+                    dispatch(setLogin(id, email, login, true))
+                }
+            })
+    } else {
+
+        res.data.messages[0]
+            //@ts-ignore
+            ? dispatch(stopSubmit('login', { _error: res.data.messages[0] }))
+            //@ts-ignore
+            : dispatch(stopSubmit('login', { _error: 'Some Error' }))
+
+    }
+
 }
 
 
-export const logout = () => (dispatch: Dispatch) => {
-    usersAPI.logout()
-        .then(res => {
-            if (res.data.resultCode === 0) {
-                dispatch(setLogin(null, null, null, false))
-            }
-        })
+export const logout = (): AppThunkType => async dispatch => {
+    const res = await usersAPI.logout()
+    if (res.data.resultCode === 0) {
+        dispatch(setLogin(null, null, null, false))
+    }
 }

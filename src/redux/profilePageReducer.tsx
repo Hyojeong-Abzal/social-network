@@ -1,6 +1,7 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { profileAPI } from '../Api/api';
+import { AppThunkType } from './redux-store';
 import { PostsType } from './store';
 
 // for profile
@@ -36,7 +37,7 @@ export type ProfilePageType = {
     newPostText: string
     status: string
 }
-type ActionsTypes =
+export type ProfilePageActionsTypes =
     | AddPostActionType
     | setUserProfileActionType
     | ReturnType<typeof setStatusAC>
@@ -88,7 +89,7 @@ const initialState: ProfilePageType = {
     status: "",
 }
 
-export const profilePageReducer = (state: ProfilePageType = initialState, action: ActionsTypes): ProfilePageType => {
+export const profilePageReducer = (state: ProfilePageType = initialState, action: ProfilePageActionsTypes): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             return {
@@ -115,29 +116,24 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
     }
 }
 
-export const getProfile = (userId: number | string) => {
-    return (dispatch: Dispatch) => {
-        profileAPI.getProfile(userId)
-            .then(response => {
-                dispatch(setUserProfileAC(response))
-            })
+export const getProfile = (userId: number | string): AppThunkType => async dispatch => {
+       const res = await profileAPI.getProfile(userId)
+                dispatch(setUserProfileAC(res))
+}
+
+export const setStatusTC = (userId: number | string): AppThunkType  => async dispatch => {
+    const res = await profileAPI.getStatus(userId)
+    if (res.data.resultCode === 0) {
+        dispatch(setStatusAC(res))
     }
-}
-
-export const setStatusTC = (userId: number | string) => (dispatch: Dispatch) => {
-    profileAPI.getStatus(userId)
-        .then(res => {
-            dispatch(setStatusAC(res))
-        })
+            
 }
 
 
 
-export const updateStatusTC = (status: string) => (dispatch: Dispatch) => {
-    profileAPI.updateStatus(status)
-        .then(res => {
+export const updateStatusTC = (status: string): AppThunkType  => async dispatch => {
+    const res = await profileAPI.updateStatus(status)
             if (res.data.resultCode === 0) {
                 dispatch(setStatusAC(status))
             }
-        })
 }
