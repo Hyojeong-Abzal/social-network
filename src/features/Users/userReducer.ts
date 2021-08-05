@@ -107,9 +107,6 @@ const initialState = {
     currentPage: 1,
     isFetching: true,
     isFollowing: []
-
-
-
 }
 
 export const userPageReducer = (state: UsersPageType = initialState, action: UserPeducerActionType): UsersPageType => {
