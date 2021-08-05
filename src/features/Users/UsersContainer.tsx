@@ -40,7 +40,7 @@ type MapDispatchPropsType = {
   toggleIsFetching: (isFetching: boolean) => void
   isFollowingAC: (isFetching: boolean, userId: number) => void
   getUsersThunk: (currentPage: number, pageSize: number) => void
-  onPageChanged: (p: number, pageSize: number) => void
+  onPageChanged: (pageNumber: number) => void
 };
 
 type UserPropsType = mapStateToPropsType & MapDispatchPropsType;

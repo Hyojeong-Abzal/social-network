@@ -10,7 +10,9 @@ import { AppStateType } from "./redux-store";
 import Navbar from "../features/Navbar/Navbar";
 import ProfileContainer from "../features/Profile/ProfileContainer";
 import DialogsContainer from "../features/Dialogs/DialogsContainer";
-import UsersContainer from "../features/Users/UsersContainer";
+import { withSuspense } from "../components/HOC/withSuspense";
+// import UsersContainer from "../features/Users/UsersContainer";
+const UsersContainer = React.lazy(() => import('../features/Users/UsersContainer'));
 
 
 type PropsType = {
@@ -47,9 +49,7 @@ class App extends React.Component<PropsType>  {
           />
           <Route
             path="/Users"
-            render={() => (
-              <UsersContainer />
-            )}
+            render={withSuspense(UsersContainer)}
           />
           <Route path="/Login" component={Login} />
 

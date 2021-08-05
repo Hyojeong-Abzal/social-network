@@ -1,5 +1,5 @@
 import React from "react";
-import { Paginator } from "../../components/Paginator/Paginator";
+import { Pagination } from "../../components/Pagination/Pagination";
 import { User } from "./User/User";
 import { UsersType } from "./userReducer";
 import s from "./Users.module.css"
@@ -14,20 +14,20 @@ type UsersPropsType = {
     isFollowing: number[]
     follow: (userId: number) => void
     unFollow: (userId: number) => void
-    onPageChanged: (p: number, pageSize: number) => void
+    onPageChanged: (pageNumber: number) => void
     isFollowingAC: (isFetching: boolean, userId: number) => void
 
 }
 
 export const Users: React.FC<UsersPropsType> = (
     {
-        users, pageSize, totalUsersCount, currentPage, isFollowing,
+        users, pageSize, totalUsersCount, currentPage = 1, isFollowing,
         follow, unFollow, onPageChanged, isFollowingAC, ...props
     }) => {
 
     return (
         <div>
-            <Paginator
+            <Pagination
                 pageSize={pageSize}
                 totalItemsCount={totalUsersCount}
                 currentPage={currentPage}
