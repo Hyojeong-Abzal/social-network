@@ -4,7 +4,7 @@
 
 #### Created using this stack of tech:
 
-React, Redux, RestAPI, Thuck, Axios and etc.
+React, Redux, RestAPI, Thunk, Axios and etc.
 
 - 🔭 I’m currently working on this page.
 
