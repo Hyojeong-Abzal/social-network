@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 import { login } from '../../redux/authMeReducer';
 import { AppStateType } from '../../redux/redux-store';
-import { required } from '../../utils/validators';
+import { createField, required } from '../../utils/validators';
 import { Input } from '../common/FormControls/FormControls';
 
 type LoginPropsType = {
@@ -35,29 +35,9 @@ type FormDataType = {
 export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit} >
-            <div>
-                <Field
-                    placeholder={"Login"}
-                    name={"email"}
-                    component={Input}
-                    validate={[required]}
-                />
-            </div>
-            <div>
-                <Field
-                    placeholder={"password"}
-                    name={"password"}
-                    type={"password"}
-                    component={Input}
-                    validate={[required]}
-                />
-            </div>
-            <div>
-                <Field
-                    type={"checkbox"}
-                    name={"rememberMe"}
-                    component={Input} /> remember me
-            </div>
+            {createField("Login", "email", Input, [required],)}
+            {createField("password", "password", Input, [required], { type: "password" })}
+            {createField(null, "rememberMe", Input, [], { type: "checkbox" }, "remember me")}
             {
                 props.error && <div style={{ color: 'red' }}>
                     {props.error}

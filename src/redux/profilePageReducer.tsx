@@ -123,10 +123,7 @@ export const getProfile = (userId: number | string): AppThunkType => async dispa
 
 export const setStatusTC = (userId: number | string): AppThunkType  => async dispatch => {
     const res = await profileAPI.getStatus(userId)
-    if (res.data.resultCode === 0) {
         dispatch(setStatusAC(res))
-    }
-            
 }
 
 
