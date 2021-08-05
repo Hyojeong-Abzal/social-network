@@ -3,9 +3,10 @@ import s from "./Dialogs.module.css";
 import { NavLink, Redirect } from "react-router-dom";
 import { Messages } from "./Messages/Messages";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
-import { Textarea } from "../../common/FormControls/FormControls";
-import { maxLengthCreator, required } from "../../../utils/validators";
-import { DialogsPageType } from "../../../redux/dialogsPageReducer";
+import { DialogsPageType } from "./dialogsPageReducer";
+import { maxLengthCreator, required } from "../../utils/validators";
+import { Textarea } from "../../components/FormControls/FormControls";
+
 
 type PropsType = {
   state: DialogsPageType

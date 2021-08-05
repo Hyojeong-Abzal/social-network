@@ -1,5 +1,5 @@
 import React from 'react';
-import { AddPostActionType } from './profilePageReducer';
+import { AddPostActionType } from '../Profile/profilePageReducer';
 
 // for messege
 export type DialogsPageType = {
@@ -14,7 +14,7 @@ export type MessagesType = {
     id: number
     message: string
 }
-export type DialogsActionsTypes =
+export type DialogsActionTypes =
     | AddPostActionType
     | SendMessageActionType
 
@@ -50,7 +50,7 @@ const initialState = {
 }
 
 export const dialogsPageReducer =
-    (state: DialogsPageType = initialState, action: DialogsActionsTypes) => {
+    (state: DialogsPageType = initialState, action: DialogsActionTypes) => {
 
         switch (action.type) {
             case SEND_MESSEGE:

@@ -1,14 +1,11 @@
 import { AppActionType, appReducer } from './appReducer'
-import { DialogsActionsTypes, dialogsPageReducer } from '../redux/dialogsPageReducer'
 import { applyMiddleware, combineReducers, createStore } from 'redux'
-import {
-  ProfilePageActionsTypes,
-  profilePageReducer,
-} from '../redux/profilePageReducer'
 import thunkMiddlewere, { ThunkAction } from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
-import { AuthMeActionTypes, authReducer } from '../redux/authMeReducer'
-import { userPageReducer, UserPeducerActionType } from '../redux/userReducer'
+import { ProfilePageActionTypes, profilePageReducer } from '../features/Profile/profilePageReducer'
+import { DialogsActionTypes, dialogsPageReducer } from '../features/Dialogs/dialogsPageReducer'
+import { userPageReducer, UserPeducerActionType } from '../features/Users/userReducer'
+import { AuthMeActionTypes, authReducer } from '../features/Login/authMeReducer'
 
 let rootReducer = combineReducers({
   profilePage: profilePageReducer,
@@ -31,8 +28,8 @@ export type AppStateType = ReturnType<RootReducerType>
 export type AppActionsType =
   | AppActionType
   | AuthMeActionTypes
-  | DialogsActionsTypes
-  | ProfilePageActionsTypes
+  | DialogsActionTypes
+  | ProfilePageActionTypes
   | UserPeducerActionType
 
 export type AppThunkType<ReturnType = void> = ThunkAction<

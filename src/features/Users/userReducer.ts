@@ -1,8 +1,8 @@
 import React from 'react';
 import { Dispatch } from 'redux';
-import { usersAPI } from '../Api/api';
-import { updateObjectInArray } from '../utils/object-helper';
-import { AppThunkType } from '../App/redux-store';
+import { usersAPI } from '../../Api/api';
+import { AppThunkType } from '../../App/redux-store';
+import { updateObjectInArray } from '../../utils/object-helper';
 
 export type UserPeducerActionType =
     followActionType
@@ -119,32 +119,11 @@ export const userPageReducer = (state: UsersPageType = initialState, action: Use
                 ...state,
                 users: updateObjectInArray(state.users, action.id, "id", { followed: true })
             }
-        // case 'FOLLOW':
-        //     return {
-        //         ...state,
-        //         users: state.users.map(u => {
-        //             if (u.id === action.id) {
-        //                 return { ...u, followed: true }
-        //             }
-        //             return u
-
-        //         })
-        //     }
         case 'UNFOLLOW':
             return {
                 ...state,
                 users: updateObjectInArray(state.users, action.id, "id", { followed: false })
             }
-        // case 'UNFOLLOW':
-        // return {
-        //     ...state,
-        //     users: state.users.map(u => {
-        //         if (u.id === action.id) {
-        //             return { ...u, followed: false }
-        //         }
-        //         return u
-        //     })
-        // }
         case 'UPDATE_USERS':
             return { ...state, users: action.users }
         case "SET_CURRENT_PAGE":

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Dispatch } from 'redux';
-import { profileAPI } from '../Api/api';
-import { PostsType } from '../components/Profile/MyPosts/MyPosts';
-import { AppThunkType } from '../App/redux-store';
+import { profileAPI } from '../../Api/api';
+import { AppThunkType } from '../../App/redux-store';
+import { PostsType } from './MyPosts/MyPosts';
 
 // for profile
 
@@ -37,7 +37,7 @@ export type ProfilePageType = {
     newPostText: string
     status: string
 }
-export type ProfilePageActionsTypes =
+export type ProfilePageActionTypes =
     | AddPostActionType
     | setUserProfileActionType
     | ReturnType<typeof setStatusAC>
@@ -89,7 +89,7 @@ const initialState: ProfilePageType = {
     status: "",
 }
 
-export const profilePageReducer = (state: ProfilePageType = initialState, action: ProfilePageActionsTypes): ProfilePageType => {
+export const profilePageReducer = (state: ProfilePageType = initialState, action: ProfilePageActionTypes): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             return {

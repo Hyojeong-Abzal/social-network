@@ -2,10 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form'
-import { login } from '../../redux/authMeReducer';
 import { AppStateType } from '../../App/redux-store';
+import { Input } from '../../components/FormControls/FormControls';
 import { createField, required } from '../../utils/validators';
-import { Input } from '../../components/common/FormControls/FormControls';
+import { login } from './authMeReducer';
 
 type LoginPropsType = {
     isAuth: boolean

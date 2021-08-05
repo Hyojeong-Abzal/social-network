@@ -1,10 +1,10 @@
 import React from "react";
 import Dialogs from "./Dialogs";
-import { AppStateType, StoreType } from "../../../App/redux-store";
-import { DialogsPageType, sendMessageAC } from "../../../redux/dialogsPageReducer";
 import { connect } from "react-redux";
 import { compose, Dispatch } from "redux";
-import { withAuthRedirect } from "../../../HOC/withAuthRedirect"
+import { DialogsPageType, sendMessageAC } from "./dialogsPageReducer";
+import { AppStateType } from "../../App/redux-store";
+import { withAuthRedirect } from "../../components/HOC/withAuthRedirect";
 
 type MapDispatchPropsType = {
   sendMessage: (newMessage: string) => void

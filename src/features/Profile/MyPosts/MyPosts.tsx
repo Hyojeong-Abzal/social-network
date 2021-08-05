@@ -3,7 +3,7 @@ import s from "./MyPosts.module.css";
 import Post from "./Post/Post";
 import { Field, InjectedFormProps, reduxForm } from "redux-form";
 import { maxLengthCreator, required } from "../../../utils/validators";
-import { Textarea } from "../../common/FormControls/FormControls";
+import { Textarea } from "../../../components/FormControls/FormControls";
 
 export type PostsType = {
   id: number

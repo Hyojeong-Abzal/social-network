@@ -1,9 +1,7 @@
 import React from 'react';
 import { usersAPI } from '../Api/api';
-import { Dispatch } from 'redux';
-import { stopSubmit } from 'redux-form';
-import { authMe, setLogin } from '../redux/authMeReducer';
 import { AppThunkType } from './redux-store';
+import { setLogin } from '../features/Login/authMeReducer';
 
 
 export type AppActionType =

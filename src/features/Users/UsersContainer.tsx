@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { withAuthRedirect } from '../../../HOC/withAuthRedirect';
-import { AppStateType } from '../../../App/redux-store';
+import { AppStateType } from '../../App/redux-store';
+import { Preloader } from '../../components/preloader/Preloader';
+import {withAuthRedirect} from '../../components/HOC/withAuthRedirect'
 import {
   changeCurrentPage,
   onFollow,
@@ -15,8 +16,7 @@ import {
   onPageChanged,
   unFollow,
   follow
-} from '../../../redux/userReducer';
-import { Preloader } from '../../common/preloader/Preloader';
+} from './userReducer';
 import { Users } from './Users';
 
 

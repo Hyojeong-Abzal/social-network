@@ -1,18 +1,16 @@
 import React, { Component } from "react";
 import "./App.css";
-import Navbar from "../components/Navbar/Navbar";
-import Settings from "../components/Main/SettingsNetwork/Settings";
 import { Route, withRouter } from "react-router-dom";
-import ProfileContainer from "../components/Profile/ProfileContainer";
 import HeaderContainer from "../features/Header/HeaderContainer";
-import DialogsContainer from "../components/Main/Dialogs/DialogsContainer";
-import UsersContainer from "../components/Main/Users/UsersContainer";
 import Login from "../features/Login/Login";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { initializeApp } from "./appReducer";
 import { AppStateType } from "./redux-store";
-import { InitialScreen } from "../InitialScreen/InitialScreen";
+import Navbar from "../features/Navbar/Navbar";
+import ProfileContainer from "../features/Profile/ProfileContainer";
+import DialogsContainer from "../features/Dialogs/DialogsContainer";
+import UsersContainer from "../features/Users/UsersContainer";
 
 
 type PropsType = {
@@ -53,7 +51,6 @@ class App extends React.Component<PropsType>  {
               <UsersContainer />
             )}
           />
-          <Route path="/Settings" component={Settings} />
           <Route path="/Login" component={Login} />
 
 

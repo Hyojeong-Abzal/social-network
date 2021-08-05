@@ -1,9 +1,9 @@
 import React, { ChangeEvent } from "react";
-import { AddPostAC } from "../../../redux/profilePageReducer";
 import MyPosts from "./MyPosts";
 import { AppStateType } from "../../../App/redux-store";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
+import { AddPostAC } from "../profilePageReducer";
 
 type MapDispatchPropsType = {
   addPost: (newPostText: string) => void

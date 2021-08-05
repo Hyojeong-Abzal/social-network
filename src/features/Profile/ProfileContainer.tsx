@@ -3,11 +3,10 @@ import React, { Props, ReactComponentElement, useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { AppStateType } from '../../App/redux-store';
 import Profile from './Profile';
-import { ProfileType, setUserProfileAC, getProfile } from '../../redux/profilePageReducer'
+import { ProfileType, setUserProfileAC, getProfile, setStatusTC, updateStatusTC } from '../Profile/profilePageReducer'
 import { RouteComponentProps, withRouter } from 'react-router';
-import { withAuthRedirect } from '../../HOC/withAuthRedirect';
 import { compose } from 'redux';
-import { setStatusTC, updateStatusTC } from '../../redux/profilePageReducer'
+import { withAuthRedirect } from '../../components/HOC/withAuthRedirect';
 
 
 type ProfilePropsType = mapStatePropsType & mapDispatchPropsType;
