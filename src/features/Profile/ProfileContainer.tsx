@@ -3,7 +3,7 @@ import React, { Props, ReactComponentElement, useEffect } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { AppStateType } from '../../App/redux-store';
 import Profile from './Profile';
-import { ProfileType, setUserProfileAC, getProfile, setStatusTC, updateStatusTC } from '../Profile/profilePageReducer'
+import { ProfileType, setUserProfileAC, getProfile, setStatusTC, updateStatusTC, savePhoto } from '../Profile/profilePageReducer'
 import { RouteComponentProps, withRouter } from 'react-router';
 import { compose } from 'redux';
 import { withAuthRedirect } from '../../components/HOC/withAuthRedirect';
@@ -18,10 +18,11 @@ type mapStatePropsType = {
 }
 
 type mapDispatchPropsType = {
-    setUserProfileAC: (profile: ProfileType | null) => void
+    setUserProfileAC: (profile: ProfileType) => void
     getProfile: (userId: number | string) => void
     setStatusTC: (userId: number | string) => void
     updateStatusTC: (status: string) => void
+    savePhoto: (photo: any) => void
 }
 
 type PathParamsType = {
@@ -49,16 +50,16 @@ export class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {
         this.refreshProfileIfo()
     }
-    // componentDidUpdate(prevProps: PropsType, prevState: AppStateType) {
-    //     if(this.props.match.params.userId != prevProps.match.params.userId){
-    //         this.refreshProfileIfo()
-    //     }
-    // }
+    componentDidUpdate(prevProps: PropsType) {
+        if(this.props.match.params.userId != prevProps.match.params.userId){
+            this.refreshProfileIfo()
+        }
+    }
     render() {
 
         return (
             <div >
-                <Profile {...this.props} />
+                <Profile isOwner={!this.props.match.params.userId} {...this.props} />
             </div>
         )
     }
@@ -91,7 +92,7 @@ let mapStateToProps = (state: AppStateType): mapStatePropsType => ({
 // export default withAuthRedirect(withRouter(connect(mapStateToProps, { setUserProfileAC, getProfile })(ProfileContainer)));
 
 export default compose<React.ComponentType>(
-    connect(mapStateToProps, { setUserProfileAC, getProfile, setStatusTC, updateStatusTC }),
+    connect(mapStateToProps, { setUserProfileAC, getProfile, setStatusTC, updateStatusTC, savePhoto }),
     withRouter,
     withAuthRedirect
 )(ProfileContainer)

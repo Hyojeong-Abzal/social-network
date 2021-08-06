@@ -34,6 +34,7 @@ export type StoreType = typeof store
 type RootReducerType = typeof rootReducer
 
 export type AppStateType = ReturnType<RootReducerType>
+export type GetAppStateType = () => AppStateType;
 
 export type AppActionsType =
   | AppActionType
