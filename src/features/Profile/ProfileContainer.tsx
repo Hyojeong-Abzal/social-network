@@ -14,6 +14,7 @@ type ProfilePropsType = mapStatePropsType & mapDispatchPropsType;
 type mapStatePropsType = {
     profile: ProfileType | null
     status: string
+    userId: null | number
 }
 
 type mapDispatchPropsType = {
@@ -31,15 +32,28 @@ type PropsType = RouteComponentProps<PathParamsType> & ProfilePropsType
 
 
 export class ProfileContainer extends React.Component<PropsType> {
-
-    componentDidMount() {
-        let userId = !this.props.match.params.userId ? 2 : this.props.match.params.userId;
+    refreshProfileIfo() {
+        let userIds = this.props.match.params.userId;
+        let userId = parseInt(userIds)
+        if (!userId) {
+            if (this.props.userId === null) {
+                this.props.history.push("/login")
+            } else (
+                userId = this.props.userId
+            )
+        }
         this.props.getProfile(userId)
         this.props.setStatusTC(userId)
-
     }
 
-
+    componentDidMount() {
+        this.refreshProfileIfo()
+    }
+    // componentDidUpdate(prevProps: PropsType, prevState: AppStateType) {
+    //     if(this.props.match.params.userId != prevProps.match.params.userId){
+    //         this.refreshProfileIfo()
+    //     }
+    // }
     render() {
 
         return (
@@ -70,7 +84,8 @@ export class ProfileContainer extends React.Component<PropsType> {
 
 let mapStateToProps = (state: AppStateType): mapStatePropsType => ({
     profile: state.profilePage.profile,
-    status: state.profilePage.status
+    status: state.profilePage.status,
+    userId: state.auth.data.id
 })
 
 // export default withAuthRedirect(withRouter(connect(mapStateToProps, { setUserProfileAC, getProfile })(ProfileContainer)));

@@ -11,6 +11,7 @@ import Navbar from "../features/Navbar/Navbar";
 import ProfileContainer from "../features/Profile/ProfileContainer";
 import DialogsContainer from "../features/Dialogs/DialogsContainer";
 import { withSuspense } from "../components/HOC/withSuspense";
+import { InitialScreen } from "../components/InitialScreen/InitialScreen";
 // import UsersContainer from "../features/Users/UsersContainer";
 const UsersContainer = React.lazy(() => import('../features/Users/UsersContainer'));
 
@@ -25,11 +26,11 @@ class App extends React.Component<PropsType>  {
     this.props.initializeApp()
   }
   render() {
-    // if (!this.props.initialized) {
-    //   return <div>
-    //     <InitialScreen />
-    //   </div>
-    // }
+    if (!this.props.initialized) {
+      return <div>
+        <InitialScreen />
+      </div>
+    }
     return (
       <div className="app-wrapper">
         <HeaderContainer />
