@@ -41,7 +41,6 @@ export type ProfilePageActionTypes =
     | AddPostActionType
     | setUserProfileActionType
     | ReturnType<typeof setStatusAC>
-    | ReturnType<typeof savePhotoSuccess>
 
 
 
@@ -65,17 +64,11 @@ export const setStatusAC = (status: string) => {
         status
     } as const
 }
-export const savePhotoSuccess = (photo: { small: string, large: string }) => {
-    return {
-        type: SAVE_PHOTO_SUCCSESS,
-        photo
-    } as const
-}
+
 
 const ADD_POST = "ADD-POST"
 const SET_USER_PROFILE = "SET_USER_PROFILE"
 const SET_STATUS = "SET_STATUS"
-const SAVE_PHOTO_SUCCSESS = "SAVE_PHOTO_SUCCSESS"
 
 
 
@@ -118,18 +111,12 @@ export const profilePageReducer = (state: ProfilePageType = initialState, action
                 ...state,
                 status: action.status
             }
-        // case SAVE_PHOTO_SUCCSESS:
-        //     return {
-        //         ...state,
-        //         profile: { ...state.profile, photos: action.photo }
-        //     }
         default:
             return state
     }
 }
 
 export const getProfile = (userId: number | string): AppThunkType => async dispatch => {
-    debugger
     const res = await profileAPI.getProfile(userId)
     dispatch(setUserProfileAC(res))
 }
@@ -141,19 +128,18 @@ export const setStatusTC = (userId: number | string): AppThunkType => async disp
 
 
 
-export const updateStatusTC = (status: string): AppThunkType => async dispatch => {
+export const updateStatusTC = (status: string): AppThunkType => async (dispatch: Dispatch<ProfilePageActionTypes>) => {
     const res = await profileAPI.updateStatus(status)
+    
     if (res.data.resultCode === 0) {
         dispatch(setStatusAC(status))
     }
 }
 
 export const savePhoto = (photo: any): AppThunkType => async (dispatch, getState: GetAppStateType) => {
-    debugger
     const id = getState().auth.data.id
     const res = await profileAPI.savePhoto(photo)
     if (res.data.resultCode === 0) {
-    
-        dispatch(getProfile(id as number | string))
+        id && dispatch(getProfile(id))
     }
 }
