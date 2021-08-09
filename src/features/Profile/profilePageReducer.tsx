@@ -130,7 +130,7 @@ export const setStatusTC = (userId: number | string): AppThunkType => async disp
 
 export const updateStatusTC = (status: string): AppThunkType => async (dispatch: Dispatch<ProfilePageActionTypes>) => {
     const res = await profileAPI.updateStatus(status)
-    
+
     if (res.data.resultCode === 0) {
         dispatch(setStatusAC(status))
     }
@@ -141,5 +141,16 @@ export const savePhoto = (photo: any): AppThunkType => async (dispatch, getState
     const res = await profileAPI.savePhoto(photo)
     if (res.data.resultCode === 0) {
         id && dispatch(getProfile(id))
+    }
+}
+
+
+export const updateProfile = (profileData: ProfileType): AppThunkType => async (dispatch, getState: GetAppStateType) => {
+    const id = getState().auth.data.id
+    const res = await profileAPI.updateProfile(profileData)
+    if (res.data.resultCode === 0) {
+        id && dispatch(getProfile(id))
+    } else {
+       // fix if responce is bad
     }
 }

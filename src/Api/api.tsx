@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ProfileType } from "../features/Profile/profilePageReducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -55,6 +56,9 @@ export const profileAPI = {
                 'Content-Type': 'multipart/form-data'
             }
         })
+    },
+    updateProfile(profileData: ProfileType) {
+        return instance.put('profile', profileData)
     }
 }
 

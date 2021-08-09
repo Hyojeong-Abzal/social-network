@@ -10,18 +10,20 @@ type ProfilePropsType = {
     isOwner: boolean
     updateStatusTC: (status: string) => void
     savePhoto: (photo: any) => void // fix any
+    updateProfile: (profileData: ProfileType) => void
 }
 
 function Profile(props: ProfilePropsType) {
     return (
         <div className={s.wrapper}>
-            <ProfileInfo 
-            isOwner={props.isOwner} 
-            profile={props.profile} 
-            status={props.status} 
-            updateStatusTC={props.updateStatusTC}
-            savePhoto={props.savePhoto}
-             />
+            <ProfileInfo
+                isOwner={props.isOwner}
+                profile={props.profile}
+                status={props.status}
+                updateStatusTC={props.updateStatusTC}
+                savePhoto={props.savePhoto}
+                updateProfile={props.updateProfile}
+            />
             <MyPostsContainer />
 
         </div>
