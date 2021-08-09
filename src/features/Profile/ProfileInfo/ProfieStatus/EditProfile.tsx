@@ -20,7 +20,7 @@ type EditProfilePropsType = {
 
 export const EditProfile: React.FC<EditProfilePropsType> = ({ profile, setEditMode, updateProfile }) => {
     const handleSummit = (form: EditProfileFormDataType) => {
-        // setEditMode()
+        setEditMode()
         let profileData = {
             ...form
         } as ProfileType

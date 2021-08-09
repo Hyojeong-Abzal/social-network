@@ -26,11 +26,11 @@ class App extends React.Component<PropsType>  {
     this.props.initializeApp()
   }
   render() {
-    if (!this.props.initialized) {
-      return <div>
-        <InitialScreen />
-      </div>
-    }
+    // if (!this.props.initialized) {
+    //   return <div>
+    //     <InitialScreen />
+    //   </div>
+    // }
     return (
       <div className="app-wrapper">
         <HeaderContainer />

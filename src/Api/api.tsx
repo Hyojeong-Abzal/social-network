@@ -27,8 +27,9 @@ export const usersAPI = {
     follow(userId: number) {
         return instance.post(`follow/${userId}`, {})
     },
-    login(email: string, password: string, rememberMe: boolean = false) {
-        return instance.post(`auth/login`, { email, password, rememberMe })
+    login(email: string, password: string, rememberMe: boolean = false, captcha?: string ) {
+        debugger
+        return instance.post(`auth/login`, { email, password, rememberMe, captcha })
     },
     logout() {
         return instance.delete(`auth/login`)
@@ -62,3 +63,8 @@ export const profileAPI = {
     }
 }
 
+export const securityAPI = {
+    captcha() {
+        return instance.get('security/get-captcha-url')
+    }
+}
